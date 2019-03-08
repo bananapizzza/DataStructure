@@ -1,5 +1,8 @@
+package com.minseung.datastructure;
+
 class LinkedList {
     Node header;
+    int size = 0;
 
     static class Node {
         int data;
@@ -20,6 +23,7 @@ class LinkedList {
             n = n.next;
         }
         n.next = end;
+        size++;
     }
 
     void delete(int d) {
@@ -36,10 +40,24 @@ class LinkedList {
     void retrieve() {
         Node n = header.next;
         while (n.next != null) {
-            System.out.print(n.data + "->");
+            System.out.print(n.data + " -> ");
             n = n.next;
         }
         System.out.println(n.data);
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        if (size == 0)
+            return s;
+        Node n = header.next;
+        while (n.next != null) {
+            s = s + Integer.toString(n.data) + " -> ";
+            n = n.next;
+        }
+        s = s + Integer.toString(n.data);
+        return s;
     }
 
     void removeDups() {
@@ -62,8 +80,8 @@ class LinkedList {
     }
 
     //Solution 1: Basic
-  /*
-  Node findKthNode(Node first, int k){
+     /*
+    Node findKthNode(Node first, int k){
     Node n = first;
     int count = 0;
     while(n.next!=null){
@@ -191,6 +209,7 @@ class LinkedList {
 
 }
 
+
 public class LinkedListNode {
     public static void main(String[] args) {
         int k = 2;
@@ -229,6 +248,7 @@ public class LinkedListNode {
         LinkedList l3 = linkedListNode.getSum(l1, l2);
         l3.retrieve();
         */
+
     }
 
     private LinkedList getSum(LinkedList l1, LinkedList l2) {
