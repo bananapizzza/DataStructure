@@ -37,7 +37,7 @@ class LinkedList {
         }
     }
 
-    void printData(LinkedList ll){
+    void printData(LinkedList ll) {
         String s = ll.toString();
         System.out.println(s);
     }
@@ -153,7 +153,7 @@ class LinkedList {
     }
 
 
-    boolean deleteNode(Node n) {
+    boolean deleteMiddleNode(Node n) {
         if (n == null || n.next == null)
             return false;
 
@@ -235,7 +235,7 @@ public class LinkedListNode {
 
         found = ll.findKthNodeUsingPointer(ll.getFirst(), k);
         System.out.println(found.data);
-        ll.deleteNode(ll.getNode(k));
+        ll.deleteMiddleNode(ll.getNode(k));
         ll.printData(ll);
         /*
         LinkedList l1 = new LinkedList();
@@ -255,25 +255,29 @@ public class LinkedListNode {
 
     }
 
-    private LinkedList getSum(LinkedList l1, LinkedList l2) {
+    public LinkedList getSum(LinkedList l1, LinkedList l2) {
         int carry = 0;
         LinkedList l3 = new LinkedList();
         LinkedList.Node n1 = l1.header.next;
         LinkedList.Node n2 = l2.header.next;
-        while (n1 != null && n2 != null) {
+        while (n1 != null || n2 != null) {
             int result = carry;
             carry = 0;
-            if (n1 != null)
+            if (n1 != null) {
                 result += n1.data;
-            if (n2 != null)
+                n1 = n1.next;
+            }
+
+            if (n2 != null) {
                 result += n2.data;
+                n2 = n2.next;
+
+            }
             if (result >= 10) {
                 carry = result / 10;
                 result = result % 10;
             }
             l3.append(result);
-            n1 = n1.next;
-            n2 = n2.next;
         }
         return l3;
     }
