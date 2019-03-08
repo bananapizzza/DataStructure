@@ -37,14 +37,18 @@ class LinkedList {
         }
     }
 
-    void retrieve() {
-        Node n = header.next;
-        while (n.next != null) {
-            System.out.print(n.data + " -> ");
-            n = n.next;
-        }
-        System.out.println(n.data);
+    void printData(LinkedList ll){
+        String s = ll.toString();
+        System.out.println(s);
     }
+//    void retrieve() {
+//        Node n = header.next;
+//        while (n.next != null) {
+//            System.out.print(n.data + " -> ");
+//            n = n.next;
+//        }
+//        System.out.println(n.data);
+//    }
 
     @Override
     public String toString() {
@@ -221,7 +225,7 @@ public class LinkedListNode {
         ll.append(3);
         ll.append(4);
         ll.append(5);
-        ll.retrieve();
+        ll.printData(ll);
         //found = ll.findKthNode(ll.getFirst(), k, r);
         found = ll.findKthNodeBasic(ll.getFirst(), k);
         System.out.println(found.data);
@@ -232,7 +236,7 @@ public class LinkedListNode {
         found = ll.findKthNodeUsingPointer(ll.getFirst(), k);
         System.out.println(found.data);
         ll.deleteNode(ll.getNode(k));
-        ll.retrieve();
+        ll.printData(ll);
         /*
         LinkedList l1 = new LinkedList();
         LinkedList l2 = new LinkedList();
