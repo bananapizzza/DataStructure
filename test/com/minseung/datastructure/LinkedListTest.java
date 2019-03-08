@@ -79,4 +79,23 @@ class LinkedListTest {
         assertEquals(l1.toString(), l2.toString());
     }
 
+    @Test
+    void test_removeDups(){
+        LinkedList l1 = new LinkedList();
+        LinkedList l2 = new LinkedList();
+        l1.append(2);
+        l1.append(3);
+        l1.append(4);
+
+        l2.append(2);
+        l2.append(3);
+        l2.append(2);
+        l2.append(4);
+        l2.append(4);
+        l2.removeDups();
+
+        assertEquals(l1.toString(), l2.toString());
+    }
+
+
 }
