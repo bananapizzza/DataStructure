@@ -95,7 +95,7 @@ class LinkedList {
     return found;
   }
   */
-
+    /*
     //Solution 3: Using pointer
     Node findKthNode(Node first, int k) {
         Node p1 = first;
@@ -120,6 +120,7 @@ class LinkedList {
         n.next = next.next;
         return true;
     }
+    */
 
     Node getNode(int k) {
         Node n = header;
@@ -128,25 +129,92 @@ class LinkedList {
         }
         return n;
     }
+
+
+    boolean deleteNode(Node n) {
+        if (n == null || n.next == null)
+            return false;
+
+        Node next = n.next;
+        n.data = next.data;
+        n.next = next.next;
+        return true;
+    }
+
+    //Solution 1: Basic
+    Node findKthNodeBasic(Node first, int k) {
+        Node n = first;
+        int count = 0;
+
+        while (n.next != null) {
+            count++;
+            n = n.next;
+        }
+
+        n = first;
+        for (int i = 0; i < count - k + 1; i++) {
+            n = n.next;
+        }
+        return n;
+    }
+
+    //Solution 2: Using recursive function
+    static class Reference {
+        int count = 0;
+    }
+
+    Node findKthNodeUsingRecursive(Node n, int k, Reference r) {
+        if (n == null)
+            return null;
+        Node found = findKthNodeUsingRecursive(n.next, k, r);
+        r.count++;
+        if (r.count == k) {
+            return n;
+        }
+        return found;
+    }
+
+    //Solution 3: Using pointer
+    Node findKthNodeUsingPointer(Node first, int k) {
+        Node p1 = first;
+        Node p2 = first;
+        for (int i = 0; i < k; i++) {
+            p1 = p1.next;
+        }
+
+        while (p1 != null) {
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        return p2;
+    }
+
 }
 
 public class LinkedListNode {
     public static void main(String[] args) {
-        int k = 1;
+        int k = 2;
         LinkedList ll = new LinkedList();
         LinkedList.Node found;
-        //LinkedList.Reference r = new LinkedList.Reference();
-        //ll.append(1);
-        //ll.append(2);
-        //ll.append(3);
-        //ll.append(4);
-        //ll.append(5);
-        //ll.retrieve();
+        LinkedList.Reference r = new LinkedList.Reference();
+        ll.append(1);
+        ll.append(2);
+        ll.append(3);
+        ll.append(4);
+        ll.append(5);
+        ll.retrieve();
         //found = ll.findKthNode(ll.getFirst(), k, r);
-        //found = ll.findKthNode(ll.getFirst(), k);
-        //System.out.println(found.data);
-        //ll.deleteNode(ll.getNode(k));
-        //ll.retrieve();
+        found = ll.findKthNodeBasic(ll.getFirst(), k);
+        System.out.println(found.data);
+
+        found = ll.findKthNodeUsingRecursive(ll.getFirst(), k, r);
+        System.out.println(found.data);
+
+        found = ll.findKthNodeUsingPointer(ll.getFirst(), k);
+        System.out.println(found.data);
+        ll.deleteNode(ll.getNode(k));
+        ll.retrieve();
+        /*
         LinkedList l1 = new LinkedList();
         LinkedList l2 = new LinkedList();
         l1.append(9);
@@ -160,6 +228,7 @@ public class LinkedListNode {
         LinkedListNode linkedListNode = new LinkedListNode();
         LinkedList l3 = linkedListNode.getSum(l1, l2);
         l3.retrieve();
+        */
     }
 
     private LinkedList getSum(LinkedList l1, LinkedList l2) {
