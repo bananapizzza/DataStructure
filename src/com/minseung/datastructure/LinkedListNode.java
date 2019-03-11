@@ -7,6 +7,13 @@ class LinkedList {
     static class Node {
         int data;
         Node next = null;
+
+        Node() {
+        }
+
+        Node(int d) {
+            data = d;
+        }
     }
 
 
@@ -223,6 +230,11 @@ class LinkedList {
 
 }
 
+class Storage {
+    int carry = 0;
+    LinkedList.Node result = null;
+}
+
 
 public class LinkedListNode {
     public static void main(String[] args) {
@@ -318,5 +330,59 @@ public class LinkedListNode {
             result.next = next;
         }
         return result;
+    }
+
+    public LinkedList.Node insertBefore(LinkedList.Node n, int data) {
+        LinkedList.Node n1 = new LinkedList.Node(data);
+        if (n != null)
+            n1.next = n;
+
+        return n1;
+    }
+
+    public LinkedList.Node LPadList(LinkedList.Node n, int size) {
+        LinkedList.Node n1 = n;
+        for (int i = 0; i < size; i++) {
+            n1 = insertBefore(n, 0);
+        }
+        return n1;
+    }
+
+    public LinkedList.Node getSumBackward(LinkedList l1, LinkedList l2) {
+
+        int size1 = l1.getSize();
+        int size2 = l2.getSize();
+
+        if (size1 < size2) {
+            l1.header.next = LPadList(l1.header.next, size2 - size1);
+        }
+        if (size1 > size2) {
+            l2.header.next = LPadList(l2.header.next, size1 - size2);
+        }
+
+        Storage storage;
+        storage = addList(l1.header.next, l2.header.next);
+
+        if (storage.carry != 0) {
+            storage.result = insertBefore(storage.result, storage.carry);
+        }
+        return storage.result;
+    }
+
+    public Storage addList(LinkedList.Node n1, LinkedList.Node n2) {
+        if (n1 == null && n2 == null) {
+            Storage storage = new Storage();
+            return storage;
+        }
+
+        Storage storage = addList(n1.next, n2.next);
+        int value = storage.carry;
+        value += n1.data;
+        value += n2.data;
+
+        storage.result = insertBefore(storage.result, value % 10);
+        storage.carry = value / 10;
+
+        return storage;
     }
 }

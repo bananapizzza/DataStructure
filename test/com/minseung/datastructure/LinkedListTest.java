@@ -299,5 +299,56 @@ class LinkedListTest {
         assertEquals(l4.toString(), l3.toString());
     }
 
+    @Test
+    void test_getSumBackward(){
+        LinkedList l1 = new LinkedList();
+        LinkedList l2 = new LinkedList();
+        l1.append(9);
+        l1.append(1);
+        l1.append(4);
 
+        l2.append(7);
+        l2.append(6);
+        l2.append(4);
+        l2.append(3);
+
+        LinkedListNode linkedListNode = new LinkedListNode();
+        LinkedList.Node result = linkedListNode.getSumBackward(l1, l2);
+        LinkedList l3 = new LinkedList();
+        l3.header.next = result;
+
+        LinkedList l4 = new LinkedList();
+        l4.append(8);
+        l4.append(5);
+        l4.append(5);
+        l4.append(7);
+
+        assertEquals(l4.toString(), l3.toString());
+    }
+
+    @Test
+    void test_getSumBackwardWithCarry(){
+        LinkedList l1 = new LinkedList();
+        LinkedList l2 = new LinkedList();
+        l1.append(9);
+        l1.append(1);
+        l1.append(4);
+
+        l2.append(6);
+        l2.append(4);
+        l2.append(3);
+
+        LinkedListNode linkedListNode = new LinkedListNode();
+        LinkedList.Node result = linkedListNode.getSumBackward(l1, l2);
+        LinkedList l3 = new LinkedList();
+        l3.header.next = result;
+
+        LinkedList l4 = new LinkedList();
+        l4.append(1);
+        l4.append(5);
+        l4.append(5);
+        l4.append(7);
+
+        assertEquals(l4.toString(), l3.toString());
+    }
 }
