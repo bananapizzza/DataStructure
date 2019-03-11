@@ -2,7 +2,7 @@ package com.minseung.datastructure;
 
 class LinkedList {
     Node header;
-    int size = 0;
+    //int size = 0;
 
     static class Node {
         int data;
@@ -23,7 +23,7 @@ class LinkedList {
             n = n.next;
         }
         n.next = end;
-        size++;
+        //size++;
     }
 
     void delete(int d) {
@@ -37,8 +37,8 @@ class LinkedList {
         }
     }
 
-    void printData(LinkedList ll) {
-        String s = ll.toString();
+    void printData() {
+        String s = this.toString();
         System.out.println(s);
     }
 //    void retrieve() {
@@ -53,7 +53,7 @@ class LinkedList {
     @Override
     public String toString() {
         String s = "";
-        if (size == 0)
+        if (getSize() == 0)
             return s;
         Node n = header.next;
         while (n.next != null) {
@@ -62,6 +62,16 @@ class LinkedList {
         }
         s = s + Integer.toString(n.data);
         return s;
+    }
+
+    int getSize() {
+        Node n = this.header;
+        int size = 0;
+        while (n.next != null) {
+            size++;
+            n = n.next;
+        }
+        return size;
     }
 
     void removeDups() {
@@ -79,7 +89,7 @@ class LinkedList {
         }
     }
 
-    Node getFirst() {
+    Node getHeader() {
         return header;
     }
 
@@ -225,37 +235,38 @@ public class LinkedListNode {
         ll.append(3);
         ll.append(4);
         ll.append(5);
-        ll.printData(ll);
+        ll.printData();
         //found = ll.findKthNode(ll.getFirst(), k, r);
-        found = ll.findKthNodeBasic(ll.getFirst(), k);
+        found = ll.findKthNodeBasic(ll.getHeader(), k);
         System.out.println(found.data);
 
-        found = ll.findKthNodeUsingRecursive(ll.getFirst(), k, r);
+        found = ll.findKthNodeUsingRecursive(ll.getHeader(), k, r);
         System.out.println(found.data);
 
-        found = ll.findKthNodeUsingPointer(ll.getFirst(), k);
+        found = ll.findKthNodeUsingPointer(ll.getHeader(), k);
         System.out.println(found.data);
         ll.deleteMiddleNode(ll.getNode(k));
-        ll.printData(ll);
-        /*
+        ll.printData();
+
         LinkedList l1 = new LinkedList();
         LinkedList l2 = new LinkedList();
         l1.append(9);
         l1.append(1);
         l1.append(4);
-        l1.retrieve();
+        l1.printData();
         l2.append(6);
         l2.append(4);
-        l2.append(3);
-        l2.retrieve();
+        l2.append(9);
+        //l2.append(9);
+        l2.printData();
         LinkedListNode linkedListNode = new LinkedListNode();
-        LinkedList l3 = linkedListNode.getSum(l1, l2);
-        l3.retrieve();
-        */
+        LinkedList l3 = linkedListNode.getSumUsingIterate(l1, l2);
+        l3.printData();
+
 
     }
 
-    public LinkedList getSum(LinkedList l1, LinkedList l2) {
+    public LinkedList getSumUsingIterate(LinkedList l1, LinkedList l2) {
         int carry = 0;
         LinkedList l3 = new LinkedList();
         LinkedList.Node n1 = l1.header.next;
@@ -279,6 +290,33 @@ public class LinkedListNode {
             }
             l3.append(result);
         }
+
+        if (carry != 0) {
+            l3.append(carry);
+        }
+
         return l3;
+    }
+
+    public LinkedList.Node getSumUsingRecursive(LinkedList.Node n1, LinkedList.Node n2, int carry) {
+        if (n1 == null && n2 == null && carry == 0)
+            return null;
+
+        LinkedList.Node result = new LinkedList.Node();
+        int value = carry;
+
+        if (n1 != null) {
+            value += n1.data;
+        }
+        if (n2 != null) {
+            value += n2.data;
+        }
+        result.data = value % 10;
+
+        if (n1 != null || n2 != null) {
+            LinkedList.Node next = getSumUsingRecursive(n1 == null ? null : n1.next, n2 == null ? null : n2.next, value >= 10 ? value / 10 : 0);
+            result.next = next;
+        }
+        return result;
     }
 }
