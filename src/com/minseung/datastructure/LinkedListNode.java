@@ -343,7 +343,7 @@ public class LinkedListNode {
     public LinkedList.Node LPadList(LinkedList.Node n, int size) {
         LinkedList.Node n1 = n;
         for (int i = 0; i < size; i++) {
-            n1 = insertBefore(n, 0);
+            n1 = insertBefore(n1, 0);
         }
         return n1;
     }
@@ -384,5 +384,27 @@ public class LinkedListNode {
         storage.carry = value / 10;
 
         return storage;
+    }
+
+    public LinkedList.Node getIntersection(LinkedList l1, LinkedList l2) {
+        int size1 = l1.getSize();
+        int size2 = l2.getSize();
+        LinkedList.Node n1 = l1.header.next;
+        LinkedList.Node n2 = l2.header.next;
+
+        if (size1 < size2) {
+            n2 = l2.getNode(size2 - size1 + 1);
+        } else if (size1 > size2) {
+            n1 = l1.getNode(size1 - size2 + 1);
+        }
+
+        while (n1 != null && n2 != null) {
+            if (n1 == n2) {
+                return n1;
+            }
+            n1 = n1.next;
+            n2 = n2.next;
+        }
+        return null;
     }
 }

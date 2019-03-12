@@ -300,7 +300,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getSumBackward(){
+    void test_getSumBackward() {
         LinkedList l1 = new LinkedList();
         LinkedList l2 = new LinkedList();
         l1.append(9);
@@ -327,15 +327,15 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getSumBackwardWithCarry(){
+    void test_getSumBackwardWithCarry() {
         LinkedList l1 = new LinkedList();
         LinkedList l2 = new LinkedList();
-        l1.append(9);
-        l1.append(1);
+        l1.append(8);
+        l1.append(7);
         l1.append(4);
 
         l2.append(6);
-        l2.append(4);
+        l2.append(8);
         l2.append(3);
 
         LinkedListNode linkedListNode = new LinkedListNode();
@@ -350,5 +350,66 @@ class LinkedListTest {
         l4.append(7);
 
         assertEquals(l4.toString(), l3.toString());
+    }
+
+    @Test
+    void test_getIntersectionWithIntersection() {
+        LinkedList l1 = new LinkedList();
+        LinkedList l2 = new LinkedList();
+        LinkedList.Node n1 = new LinkedList.Node(5);
+        l1.header.next = n1;
+        LinkedList.Node n2 = new LinkedList.Node(7);
+        n1.next = n2;
+        LinkedList.Node n3 = new LinkedList.Node(9);
+        n2.next = n3;
+        LinkedList.Node n4 = new LinkedList.Node(10);
+        n3.next = n4;
+        LinkedList.Node n5 = new LinkedList.Node(7);
+        n4.next = n5;
+        LinkedList.Node n6 = new LinkedList.Node(6);
+        n5.next = n6;
+
+        LinkedList.Node m1 = new LinkedList.Node(6);
+        l2.header.next = m1;
+        LinkedList.Node m2 = new LinkedList.Node(8);
+        m1.next = m2;
+        m2.next = n4;
+
+        LinkedListNode linkedListNode = new LinkedListNode();
+        LinkedList.Node result = linkedListNode.getIntersection(l1, l2);
+
+        assertEquals(n4, result);
+    }
+
+    @Test
+    void test_getIntersectionWithoutIntersection() {
+        LinkedList l1 = new LinkedList();
+        LinkedList l2 = new LinkedList();
+        LinkedList.Node n1 = new LinkedList.Node(5);
+        l1.header.next = n1;
+        LinkedList.Node n2 = new LinkedList.Node(7);
+        n1.next = n2;
+        LinkedList.Node n3 = new LinkedList.Node(9);
+        n2.next = n3;
+        LinkedList.Node n4 = new LinkedList.Node(10);
+        n3.next = n4;
+        LinkedList.Node n5 = new LinkedList.Node(7);
+        n4.next = n5;
+        LinkedList.Node n6 = new LinkedList.Node(6);
+        n5.next = n6;
+
+        LinkedList.Node m1 = new LinkedList.Node(6);
+        l2.header.next = m1;
+        LinkedList.Node m2 = new LinkedList.Node(8);
+        m1.next = m2;
+        LinkedList.Node m3 = new LinkedList.Node(10);
+        m2.next = m3;
+        LinkedList.Node m4 = new LinkedList.Node(3);
+        m3.next = m4;
+
+        LinkedListNode linkedListNode = new LinkedListNode();
+        LinkedList.Node result = linkedListNode.getIntersection(l1, l2);
+
+        assertEquals(null, result);
     }
 }
