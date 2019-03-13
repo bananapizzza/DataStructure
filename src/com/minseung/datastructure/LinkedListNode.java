@@ -2,7 +2,6 @@ package com.minseung.datastructure;
 
 class LinkedList {
     Node header;
-    //int size = 0;
 
     static class Node {
         int data;
@@ -11,8 +10,8 @@ class LinkedList {
         Node() {
         }
 
-        Node(int d) {
-            data = d;
+        Node(int data) {
+            this.data = data;
         }
     }
 
@@ -30,7 +29,6 @@ class LinkedList {
             n = n.next;
         }
         n.next = end;
-        //size++;
     }
 
     void delete(int d) {
@@ -48,14 +46,6 @@ class LinkedList {
         String s = this.toString();
         System.out.println(s);
     }
-//    void retrieve() {
-//        Node n = header.next;
-//        while (n.next != null) {
-//            System.out.print(n.data + " -> ");
-//            n = n.next;
-//        }
-//        System.out.println(n.data);
-//    }
 
     @Override
     public String toString() {
@@ -99,67 +89,6 @@ class LinkedList {
     Node getHeader() {
         return header;
     }
-
-    //Solution 1: Basic
-     /*
-    Node findKthNode(Node first, int k){
-    Node n = first;
-    int count = 0;
-    while(n.next!=null){
-      n = n.next;
-      count++;
-    }
-
-    n = first;
-    for(int i = 0; i < count - k + 1; i++){
-      n = n.next;
-    }
-    return n;
-  }
-  */
-
-    //Solution 2: Using recursive function
-  /*
-  static class Reference{
-    public int count = 0;
-  }
-  Node findKthNode(Node n, int k, Reference r){
-    if(n == null)
-      return null;
-    Node found = findKthNode(n.next, k, r);
-    r.count++;
-    if(r.count == k){
-      return n;
-    }
-    return found;
-  }
-  */
-    /*
-    //Solution 3: Using pointer
-    Node findKthNode(Node first, int k) {
-        Node p1 = first;
-        Node p2 = first;
-
-        for (int i = 0; i < k; i++) {
-            p1 = p1.next;
-        }
-
-        while (p1 != null) {
-            p1 = p1.next;
-            p2 = p2.next;
-        }
-        return p2;
-    }
-
-    boolean deleteNode(Node n) {
-        if (n == null || n.next == null)
-            return false;
-        Node next = n.next;
-        n.data = next.data;
-        n.next = next.next;
-        return true;
-    }
-    */
 
     Node getNode(int k) {
         Node n = header;
@@ -248,7 +177,6 @@ public class LinkedListNode {
         ll.append(4);
         ll.append(5);
         ll.printData();
-        //found = ll.findKthNode(ll.getFirst(), k, r);
         found = ll.findKthNodeBasic(ll.getHeader(), k);
         System.out.println(found.data);
 
@@ -269,7 +197,6 @@ public class LinkedListNode {
         l2.append(6);
         l2.append(4);
         l2.append(9);
-        //l2.append(9);
         l2.printData();
         LinkedListNode linkedListNode = new LinkedListNode();
         LinkedList l3 = linkedListNode.getSumUsingIterate(l1, l2);
@@ -332,6 +259,7 @@ public class LinkedListNode {
         return result;
     }
 
+    //TODO: Create test case
     public LinkedList.Node insertBefore(LinkedList.Node n, int data) {
         LinkedList.Node n1 = new LinkedList.Node(data);
         if (n != null)
@@ -340,12 +268,13 @@ public class LinkedListNode {
         return n1;
     }
 
-    public LinkedList.Node LPadList(LinkedList.Node n, int size) {
-        LinkedList.Node n1 = n;
+    //TODO: Create test case
+    public LinkedList.Node lPadList(LinkedList.Node current, int size) {
+        LinkedList.Node n = current;
         for (int i = 0; i < size; i++) {
-            n1 = insertBefore(n1, 0);
+            n = insertBefore(n, 0);
         }
-        return n1;
+        return n;
     }
 
     public LinkedList.Node getSumBackward(LinkedList l1, LinkedList l2) {
@@ -354,14 +283,13 @@ public class LinkedListNode {
         int size2 = l2.getSize();
 
         if (size1 < size2) {
-            l1.header.next = LPadList(l1.header.next, size2 - size1);
+            l1.header.next = lPadList(l1.header.next, size2 - size1);
         }
         if (size1 > size2) {
-            l2.header.next = LPadList(l2.header.next, size1 - size2);
+            l2.header.next = lPadList(l2.header.next, size1 - size2);
         }
 
-        Storage storage;
-        storage = addList(l1.header.next, l2.header.next);
+        Storage storage = addList(l1.header.next, l2.header.next);
 
         if (storage.carry != 0) {
             storage.result = insertBefore(storage.result, storage.carry);
@@ -386,6 +314,7 @@ public class LinkedListNode {
         return storage;
     }
 
+    //Find intersection node of two different linked lists and return the node
     public LinkedList.Node getIntersection(LinkedList l1, LinkedList l2) {
         int size1 = l1.getSize();
         int size2 = l2.getSize();
@@ -406,5 +335,29 @@ public class LinkedListNode {
             n2 = n2.next;
         }
         return null;
+    }
+
+    public LinkedList.Node getIntersectionUsingRecursive(LinkedList l1, LinkedList l2){
+        int size1 = l1.getSize();
+        int size2 = l2.getSize();
+        if(size1 < size2){
+            l1.header.next = lPadList(l1.header.next, size2 - size1);
+        }
+        if(size1 > size2){
+            l2.header.next = lPadList(l2.header.next, size1 - size2);
+        }
+        LinkedList.Node found = getIntersectionNode(l1.header.next, l2.header.next);
+        return found;
+    }
+
+    public LinkedList.Node getIntersectionNode(LinkedList.Node n1, LinkedList.Node n2){
+        if(n1 == null && n2 == null){
+            return null;
+        }
+        LinkedList.Node n = getIntersectionNode(n1 == null? null : n1.next, n2 == null? null : n2.next);
+        if(n1 != null && n2 != null && n1 == n2){
+            return n1;
+        }
+        return n;
     }
 }
