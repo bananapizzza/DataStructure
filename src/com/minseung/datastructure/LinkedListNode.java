@@ -337,27 +337,49 @@ public class LinkedListNode {
         return null;
     }
 
-    public LinkedList.Node getIntersectionUsingRecursive(LinkedList l1, LinkedList l2){
+    public LinkedList.Node getIntersectionUsingRecursive(LinkedList l1, LinkedList l2) {
         int size1 = l1.getSize();
         int size2 = l2.getSize();
-        if(size1 < size2){
+        if (size1 < size2) {
             l1.header.next = lPadList(l1.header.next, size2 - size1);
         }
-        if(size1 > size2){
+        if (size1 > size2) {
             l2.header.next = lPadList(l2.header.next, size1 - size2);
         }
         LinkedList.Node found = getIntersectionNode(l1.header.next, l2.header.next);
         return found;
     }
 
-    public LinkedList.Node getIntersectionNode(LinkedList.Node n1, LinkedList.Node n2){
-        if(n1 == null && n2 == null){
+    public LinkedList.Node getIntersectionNode(LinkedList.Node n1, LinkedList.Node n2) {
+        if (n1 == null && n2 == null) {
             return null;
         }
-        LinkedList.Node n = getIntersectionNode(n1 == null? null : n1.next, n2 == null? null : n2.next);
-        if(n1 != null && n2 != null && n1 == n2){
+        LinkedList.Node n = getIntersectionNode(n1 == null ? null : n1.next, n2 == null ? null : n2.next);
+        if (n1 != null && n2 != null && n1 == n2) {
             return n1;
         }
         return n;
+    }
+
+    public LinkedList.Node findLoop(LinkedList ll) {
+        LinkedList.Node fast = ll.header.next;
+        LinkedList.Node slow = ll.header.next;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                break;
+            }
+        }
+        if (fast == null || fast.next == null) {
+            return null;
+        }
+
+        slow = ll.header.next;
+        while (fast != slow) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return fast;
     }
 }
