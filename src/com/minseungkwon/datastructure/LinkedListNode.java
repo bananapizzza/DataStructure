@@ -1,4 +1,4 @@
-package com.minseung.datastructure;
+package com.minseungkwon.datastructure;
 
 class LinkedList {
     Node header;

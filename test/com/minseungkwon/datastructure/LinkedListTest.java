@@ -1,4 +1,4 @@
-package com.minseung.datastructure;
+package com.minseungkwon.datastructure;
 
 import org.junit.jupiter.api.Test;
 
