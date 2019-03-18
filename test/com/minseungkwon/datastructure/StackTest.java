@@ -1,15 +1,16 @@
 package com.minseungkwon.datastructure;
 
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.EmptyStackException;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-class StackTest {
+public class StackTest {
 
     @Test
-    void test_toString() {
+    public void test_toString() {
         Stack<Integer> stack = new Stack<>();
         Stack.Node<Integer> n1 = new Stack.Node<>(1);
         n1.setNext(stack.getTop());
@@ -28,7 +29,7 @@ class StackTest {
     }
 
     @Test
-    void test_push() {
+    public void test_push() {
         Stack<Integer> expected = new Stack<>();
         Stack.Node<Integer> n1 = new Stack.Node<>(1);
         n1.setNext(expected.getTop());
@@ -53,7 +54,7 @@ class StackTest {
     }
 
     @Test
-    void test_pop() {
+    public void test_pop() {
         Stack<Integer> stack = new Stack<>();
         stack.push(1);
         stack.push(2);
@@ -67,18 +68,14 @@ class StackTest {
     }
 
 
-    @Test
-    void test_popException() {
+    @Test(expected = EmptyStackException.class)
+    public void test_popException() {
         Stack<Integer> stack = new Stack<>();
-        try {
-            stack.pop();
-        } catch (EmptyStackException e) {
-            e.printStackTrace();
-        }
+        stack.pop();
     }
 
     @Test
-    void test_peek() {
+    public void test_peek() {
         Stack<Integer> stack = new Stack<>();
         stack.push(1);
         stack.push(2);
@@ -95,24 +92,20 @@ class StackTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    void test_peekException() {
+    @Test(expected = EmptyStackException.class)
+    public void test_peekException() {
         Stack<Integer> stack = new Stack<>();
-        try {
-            stack.pop();
-        } catch (EmptyStackException e) {
-            e.printStackTrace();
-        }
+        stack.peek();
     }
 
     @Test
-    void test_isEmptyWithEmptyStack() {
+    public void test_isEmptyWithEmptyStack() {
         Stack<Integer> stack = new Stack<>();
         assertEquals(true, stack.isEmpty());
     }
 
     @Test
-    void test_isEmptyWithFilledStack() {
+    public void test_isEmptyWithFilledStack() {
         Stack<Integer> stack = new Stack<>();
         stack.push(1);
         stack.push(2);

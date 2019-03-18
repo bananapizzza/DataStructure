@@ -1,10 +1,9 @@
 package com.minseungkwon.datastructure;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class LinkedListTest {
+public class LinkedListTest {
 
     LinkedList makeLinkedList(int[] data) {
         LinkedList ll = new LinkedList();
@@ -15,7 +14,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_makeLinkedList() {
+    public void test_makeLinkedList() {
         LinkedList l1 = new LinkedList();
         LinkedList l2;
         LinkedList.Node n1 = new LinkedList.Node();
@@ -35,13 +34,13 @@ class LinkedListTest {
     }
 
     @Test
-    void test_toString_emptyLL() {
+    public void test_toString_emptyLL() {
         LinkedList l1 = new LinkedList();
         assertEquals("", l1.toString());
     }
 
     @Test
-    void test_toString_oneNodeLL() {
+    public void test_toString_oneNodeLL() {
         LinkedList l1 = new LinkedList();
         l1.header.next = new LinkedList.Node();
         l1.header.next.data = 1;
@@ -49,7 +48,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_toString_twoMoreNodeLL() {
+    public void test_toString_twoMoreNodeLL() {
         LinkedList l1 = new LinkedList();
         LinkedList.Node n1 = new LinkedList.Node();
         n1.data = 1;
@@ -62,7 +61,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_append() {
+    public void test_append() {
         LinkedList l1 = new LinkedList();
         LinkedList l2 = new LinkedList();
         LinkedList.Node n1 = new LinkedList.Node();
@@ -83,7 +82,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_delete() {
+    public void test_delete() {
         int[] data1 = {1, 3, 4, 5};
         int[] data2 = {1, 2, 3, 4, 5};
         LinkedList l1 = makeLinkedList(data1);
@@ -95,7 +94,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_removeDups() {
+    public void test_removeDups() {
         int[] data1 = {2, 3, 4};
         int[] data2 = {2, 3, 2, 4, 4};
         LinkedList l1 = makeLinkedList(data1);
@@ -107,7 +106,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getNode() {
+    public void test_getNode() {
         LinkedList l1 = new LinkedList();
         LinkedList.Node n1 = new LinkedList.Node();
         n1.data = 1;
@@ -123,7 +122,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_deleteMiddleNode() {
+    public void test_deleteMiddleNode() {
         int[] data1 = {2, 3, 4};
         int[] data2 = {2, 3, 2, 4};
         LinkedList l1 = makeLinkedList(data1);
@@ -135,7 +134,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_findKthNodeBasic() {
+    public void test_findKthNodeBasic() {
         int[] data = {1, 7, 5};
         LinkedList l1 = makeLinkedList(data);
 
@@ -143,7 +142,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_findKthNodeUsingRecursive() {
+    public void test_findKthNodeUsingRecursive() {
         int[] data = {1, 7, 5};
         LinkedList l1 = makeLinkedList(data);
 
@@ -153,7 +152,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_findKthNodeUsingPointer() {
+    public void test_findKthNodeUsingPointer() {
         int[] data = {1, 7, 5};
         LinkedList l1 = makeLinkedList(data);
 
@@ -161,7 +160,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getSumUsingIterate() {
+    public void test_getSumUsingIterate() {
         int[] data1 = {9, 1, 4};
         int[] data2 = {7, 6, 4, 3};
         LinkedList l1 = makeLinkedList(data1);
@@ -177,7 +176,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getSumUsingRecursive_sameLength() {
+    public void test_getSumUsingRecursive_sameLength() {
 
         int[] data1 = {9, 1, 4};
         int[] data2 = {7, 6, 4};
@@ -196,7 +195,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getSumUsingRecursive_sameLengthWithCarry() {
+    public void test_getSumUsingRecursive_sameLengthWithCarry() {
         int[] data1 = {9, 1, 4};
         int[] data2 = {7, 6, 9};
         LinkedList l1 = makeLinkedList(data1);
@@ -214,7 +213,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getSumUsingRecursive_differentLength() {
+    public void test_getSumUsingRecursive_differentLength() {
         int[] data1 = {9, 1, 4};
         int[] data2 = {7, 6, 4, 3};
         LinkedList l1 = makeLinkedList(data1);
@@ -232,7 +231,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getSumBackward() {
+    public void test_getSumBackward() {
         int[] data1 = {9, 1, 4};
         int[] data2 = {7, 6, 4, 3};
         LinkedList l1 = makeLinkedList(data1);
@@ -250,7 +249,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getSumBackwardWithCarry() {
+    public void test_getSumBackwardWithCarry() {
         int[] data1 = {8, 7, 4};
         int[] data2 = {6, 8, 3};
         LinkedList l1 = makeLinkedList(data1);
@@ -268,7 +267,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getIntersectionWithIntersection() {
+    public void test_getIntersectionWithIntersection() {
         int[] data1 = {5, 7, 9, 10, 7, 6};
         int[] data2 = {6, 8};
         LinkedList l1 = makeLinkedList(data1);
@@ -285,7 +284,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getIntersectionWithoutIntersection() {
+    public void test_getIntersectionWithoutIntersection() {
         int[] data1 = {5, 7, 9, 10, 7, 6};
         int[] data2 = {6, 8, 10, 3};
         LinkedList l1 = makeLinkedList(data1);
@@ -298,7 +297,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_getIntersectionUsingRecursive() {
+    public void test_getIntersectionUsingRecursive() {
         int[] data1 = {5, 7, 9, 10, 7, 6};
         int[] data2 = {6, 8};
         LinkedList l1 = makeLinkedList(data1);
@@ -315,7 +314,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_findLoopWithLoop() {
+    public void test_findLoopWithLoop() {
         int k = 3;
         int[] data = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         LinkedList ll = makeLinkedList(data);
@@ -329,7 +328,7 @@ class LinkedListTest {
     }
 
     @Test
-    void test_findLoopWithoutLoop() {
+    public void test_findLoopWithoutLoop() {
         int k = 3;
         int[] data = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         LinkedList ll = makeLinkedList(data);
