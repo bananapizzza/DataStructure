@@ -1,4 +1,4 @@
-package com.minseung.datastructure;
+package com.minseungkwon.datastructure;
 
 import java.util.EmptyStackException;
 
@@ -52,14 +52,14 @@ class Stack<T> {
         if (this.top == null)
             return "";
         Stack<T> copy = this;
-        String s = "";
+        StringBuilder s = new StringBuilder();
         while (copy.top.next != null) {
-            s += copy.top.data.toString();
-            s += " -> ";
+            s.append(copy.top.data.toString());
+            s.append(" -> ");
             copy.top = copy.top.next;
         }
-        s += copy.top.data.toString();
-        return s;
+        s.append(copy.top.data.toString());
+        return s.toString();
     }
 
     public Node<T> getTop() {
@@ -70,6 +70,7 @@ class Stack<T> {
         this.top = top;
     }
 }
+
 
 public class StackAndQueue {
 }

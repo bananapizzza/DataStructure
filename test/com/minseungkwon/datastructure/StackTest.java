@@ -1,6 +1,8 @@
-package com.minseung.datastructure;
+package com.minseungkwon.datastructure;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.EmptyStackException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,6 +66,17 @@ class StackTest {
         assertEquals(expected, actual);
     }
 
+
+    @Test
+    void test_popException() {
+        Stack<Integer> stack = new Stack<>();
+        try {
+            stack.pop();
+        } catch (EmptyStackException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     void test_peek() {
         Stack<Integer> stack = new Stack<>();
@@ -83,13 +96,23 @@ class StackTest {
     }
 
     @Test
+    void test_peekException() {
+        Stack<Integer> stack = new Stack<>();
+        try {
+            stack.pop();
+        } catch (EmptyStackException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     void test_isEmptyWithEmptyStack() {
         Stack<Integer> stack = new Stack<>();
         assertEquals(true, stack.isEmpty());
     }
 
     @Test
-    void test_isEmptyWithFilledStack(){
+    void test_isEmptyWithFilledStack() {
         Stack<Integer> stack = new Stack<>();
         stack.push(1);
         stack.push(2);
