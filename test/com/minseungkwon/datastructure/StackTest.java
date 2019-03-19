@@ -2,9 +2,11 @@ package com.minseungkwon.datastructure;
 
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 
 public class StackTest {
@@ -75,7 +77,7 @@ public class StackTest {
     }
 
     @Test
-    public void test_peek() {
+    public void test_peekStack() {
         Stack<Integer> stack = new Stack<>();
         stack.push(1);
         stack.push(2);
@@ -93,7 +95,7 @@ public class StackTest {
     }
 
     @Test(expected = EmptyStackException.class)
-    public void test_peekException() {
+    public void test_peekExceptionStack() {
         Stack<Integer> stack = new Stack<>();
         stack.peek();
     }
@@ -113,5 +115,105 @@ public class StackTest {
         stack.push(4);
 
         assertEquals(false, stack.isEmpty());
+    }
+
+    @Test
+    public void test_getSizeQueue(){
+        Queue<Integer> queue = new Queue<>();
+        Queue.Node<Integer> n1 = new Queue.Node<>(1);
+        Queue.Node<Integer> n2 = new Queue.Node<>(2);
+        n1.setNext(n2);
+        Queue.Node<Integer> n3 = new Queue.Node<>(3);
+        n2.setNext(n3);
+        Queue.Node<Integer> n4 = new Queue.Node<>(4);
+        n3.setNext(n4);
+        Queue.Node<Integer> n5 = new Queue.Node<>(5);
+        n4.setNext(n5);
+        queue.setFirst(n1);
+        queue.setLast(n5);
+
+        assertEquals(5, queue.getSizeQueue());
+    }
+
+    @Test
+    public void test_add() {
+        Queue<Integer> expected = new Queue<>();
+        Queue.Node<Integer> n1 = new Queue.Node<>(1);
+        Queue.Node<Integer> n2 = new Queue.Node<>(2);
+        n1.setNext(n2);
+        Queue.Node<Integer> n3 = new Queue.Node<>(3);
+        n2.setNext(n3);
+        Queue.Node<Integer> n4 = new Queue.Node<>(4);
+        n3.setNext(n4);
+        Queue.Node<Integer> n5 = new Queue.Node<>(5);
+        n4.setNext(n5);
+        expected.setFirst(n1);
+        expected.setLast(n5);
+
+        Queue<Integer> actual = new Queue<>();
+        actual.add(1);
+        actual.add(2);
+        actual.add(3);
+        actual.add(4);
+        actual.add(5);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_remove() {
+        Queue<Integer> queue = new Queue<>();
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        queue.add(4);
+        queue.add(5);
+        Queue.Node<Integer> expected = queue.getFirst();
+        Queue.Node<Integer> actual = queue.remove();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void test_removeException() {
+        Queue<Integer> queue = new Queue<>();
+        queue.remove();
+    }
+
+    @Test
+    public void test_peekQueue() {
+        Queue<Integer> queue = new Queue<>();
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        queue.add(4);
+        queue.add(5);
+        Queue.Node<Integer> expected = queue.getFirst();
+        Queue.Node<Integer> actual = queue.peek();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void test_peekExceptionQueue() {
+        Queue<Integer> queue = new Queue<>();
+        queue.peek();
+    }
+
+    @Test
+    public void isEmptyWithEmptyQueue() {
+        Queue<Integer> queue = new Queue<>();
+        assertEquals(true, queue.isEmpty());
+    }
+
+    @Test
+    public void isEmptyWithFilledQueue() {
+        Queue<Integer> queue = new Queue<>();
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        queue.add(4);
+        queue.add(5);
+        assertEquals(false, queue.isEmpty());
     }
 }
