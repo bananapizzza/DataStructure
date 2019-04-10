@@ -2,7 +2,9 @@ package com.minseungkwon.datastructure;
 
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
+
 import java.util.EmptyStackException;
 
 public class StackTest {
@@ -48,7 +50,7 @@ public class StackTest {
         actual.push(3);
         actual.push(4);
 
-        assertEquals("4 -> 3 -> 2 -> 1", expected.toString());
+        assertEquals("4 -> 3 -> 2 -> 1", actual.toString());
     }
 
     @Test
@@ -111,5 +113,18 @@ public class StackTest {
         stack.push(4);
 
         assertEquals(false, stack.isEmpty());
+    }
+
+    @Test
+    public void test_sortUsingAnotherStack() {
+        Stack<Integer> actual = new Stack<>();
+        actual.push(2);
+        actual.push(6);
+        actual.push(8);
+        actual.push(5);
+        actual.push(3);
+        actual.sortUsingAnotherStack();
+
+        assertEquals("2 -> 3 -> 5 -> 6 -> 8", actual.toString());
     }
 }

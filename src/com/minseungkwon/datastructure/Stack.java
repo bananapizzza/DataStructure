@@ -2,7 +2,7 @@ package com.minseungkwon.datastructure;
 
 import java.util.EmptyStackException;
 
-public class Stack<T> {
+public class Stack<T extends Comparable<T>> {
     private Node<T> top = null;
 
     public void push(T data) {
@@ -58,10 +58,25 @@ public class Stack<T> {
     public int getSize() {
         Node<T> n = this.top;
         int size = 0;
-        while(n != null){
+        while (n != null) {
             size++;
             n = n.getNext();
         }
         return size;
+    }
+
+    public void sortUsingAnotherStack() {
+        Stack<T> tempStack = new Stack<>();
+        while (!this.isEmpty()) {
+            T compare = this.pop();
+            while (!tempStack.isEmpty() && compare.compareTo(tempStack.peek()) < 0) {
+                this.push(tempStack.pop());
+            }
+            tempStack.push(compare);
+        }
+
+        while (!tempStack.isEmpty()) {
+            this.push(tempStack.pop());
+        }
     }
 }
