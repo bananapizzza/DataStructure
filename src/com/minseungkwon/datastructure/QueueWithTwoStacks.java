@@ -2,7 +2,7 @@ package com.minseungkwon.datastructure;
 
 import java.util.NoSuchElementException;
 
-public class QueueWithTwoStacks<T> extends QueueInterface<T> {
+public class QueueWithTwoStacks<T extends Comparable<T>> extends QueueInterface<T> {
     private Stack<T> oldest;
     private Stack<T> newest;
 
