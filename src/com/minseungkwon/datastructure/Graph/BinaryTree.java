@@ -1,4 +1,4 @@
-package com.minseungkwon.datastructure.Tree;
+package com.minseungkwon.datastructure.Graph;
 
 class Node<T> {
     T data;
