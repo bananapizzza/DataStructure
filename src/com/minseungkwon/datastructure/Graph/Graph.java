@@ -44,6 +44,7 @@ public class Graph {
     }
 
     public String dfs(int index) {
+        initMarks();
         StringBuilder result = new StringBuilder();
         Stack<Node> stack = new Stack<>();
         Node root = nodes[index];
@@ -81,6 +82,7 @@ public class Graph {
     }
 
     public String dfsRecursive(int index) {
+        initMarks();
         Node r = nodes[index];
         StringBuilder s = new StringBuilder();
         return dfsRecursive(r, s).toString();
@@ -95,6 +97,7 @@ public class Graph {
     }
 
     public String bfs(int index) {
+        initMarks();
         StringBuilder result = new StringBuilder();
         Queue<Node> queue = new Queue<>();
         Node root = nodes[index];
@@ -116,4 +119,32 @@ public class Graph {
         return result.toString();
     }
 
+    void initMarks() {
+        for (Node n : nodes) {
+            n.marked = false;
+        }
+    }
+
+    public boolean search(int i1, int i2) {
+        return search(nodes[i1], nodes[i2]);
+    }
+
+    boolean search(Node first, Node end) {
+        initMarks();
+        Queue<Node> queue = new Queue<>();
+        queue.add(first);
+        while (!queue.isEmpty()) {
+            Node root = queue.remove();
+            if (root == end) {
+                return true;
+            }
+            for (Node n : root.adjacent) {
+                if (n.marked == false) {
+                    n.marked = true;
+                    queue.add(n);
+                }
+            }
+        }
+        return false;
+    }
 }
