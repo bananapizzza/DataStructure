@@ -1,5 +1,7 @@
 package com.minseungkwon.datastructure.Graph;
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class BinaryTreeTest {
@@ -22,7 +24,7 @@ public class BinaryTreeTest {
     }
 
     @Test
-    public void test_preorder(){
+    public void test_preorder() {
         BinaryTree<Integer> bt = new BinaryTree();
         Node n4 = bt.makeNode(null, 4, null);
         Node n5 = bt.makeNode(null, 5, null);
@@ -40,7 +42,7 @@ public class BinaryTreeTest {
     }
 
     @Test
-    public void test_postorder(){
+    public void test_postorder() {
         BinaryTree<Integer> bt = new BinaryTree();
         Node n4 = bt.makeNode(null, 4, null);
         Node n5 = bt.makeNode(null, 5, null);
@@ -55,5 +57,38 @@ public class BinaryTreeTest {
         bt.postorder(bt.getRoot(), actual);
 
         assertEquals(expected.toString(), actual.toString());
+    }
+
+    @Test
+    public void test_makeTree() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        assertEquals("4102375689", bt.toString());
+    }
+
+    @Test
+    public void test_searchBTreeWithExistentData() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        assertEquals(true, bt.searchBTree(2));
+    }
+
+    @Test
+    public void test_searchBTreeWithoutExistentData() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        assertEquals(false, bt.searchBTree(12));
     }
 }

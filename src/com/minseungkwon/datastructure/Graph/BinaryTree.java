@@ -6,7 +6,7 @@ class Node<T> {
     Node right;
 }
 
-public class BinaryTree<T> {
+public class BinaryTree<T extends Comparable> {
     private Node root;
 
     public Node getRoot() {
@@ -50,6 +50,45 @@ public class BinaryTree<T> {
             s.append(n.data);
         }
         return s;
+    }
+
+    public void makeTree(T[] array) {
+        this.root = makeTreeR(array, 0, array.length - 1);
+    }
+
+    Node makeTreeR(T[] array, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int mid = (start + end) / 2;
+        Node n = new Node();
+        n.data = array[mid];
+        n.left = makeTreeR(array, start, mid - 1);
+        n.right = makeTreeR(array, mid + 1, end);
+        return n;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        return preoder(this.root, s).toString();
+    }
+
+    public boolean searchBTree(T data){
+        return searchBTree(this.root, data);
+    }
+
+    boolean searchBTree(Node n, T find) {
+        if (n == null) {
+            return false;
+        }
+        if (find.compareTo(n.data) < 0) {
+            return searchBTree(n.left, find);
+        } else if (find.compareTo(n.data) > 0) {
+            return searchBTree(n.right, find);
+        } else {
+            return true;
+        }
     }
 }
 
