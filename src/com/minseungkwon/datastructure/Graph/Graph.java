@@ -10,16 +10,15 @@ public class Graph {
     class Node {
         int data;
         LinkedList<Node> adjacent;
-        boolean marked;
 
         Node(int data) {
             this.data = data;
             adjacent = new LinkedList<>();
-            marked = false;
         }
     }
 
     Node[] nodes;
+    boolean[] marks;
 
     Graph(int size) {
         nodes = new Node[size];
@@ -48,13 +47,13 @@ public class Graph {
         StringBuilder result = new StringBuilder();
         Stack<Node> stack = new Stack<>();
         Node root = nodes[index];
-        root.marked = true;
+        marks[root.data] = true;
         stack.push(root);
         while (!stack.isEmpty()) {
             Node r = stack.pop();
             for (Node n : r.adjacent) {
-                if (n.marked == false) {
-                    n.marked = true;
+                if (marks[n.data] == false) {
+                    marks[n.data] = true;
                     stack.push(n);
                 }
             }
@@ -70,10 +69,10 @@ public class Graph {
         if (r == null) {
             return s;
         }
-        r.marked = true;
+        marks[r.data] = true;
         s.append(r.data);
         for (Node n : r.adjacent) {
-            if (n.marked == false) {
+            if (marks[n.data] == false) {
                 s.append(" -> ");
                 dfsRecursive(n, s);
             }
@@ -101,13 +100,13 @@ public class Graph {
         StringBuilder result = new StringBuilder();
         Queue<Node> queue = new Queue<>();
         Node root = nodes[index];
-        root.marked = true;
+        marks[root.data] = true;
         queue.add(root);
         while (!queue.isEmpty()) {
             Node r = queue.remove();
             for (Node n : r.adjacent) {
-                if (n.marked == false) {
-                    n.marked = true;
+                if (marks[n.data] == false) {
+                    marks[n.data] = true;
                     queue.add(n);
                 }
             }
@@ -120,9 +119,7 @@ public class Graph {
     }
 
     void initMarks() {
-        for (Node n : nodes) {
-            n.marked = false;
-        }
+        marks = new boolean[nodes.length];
     }
 
     public boolean search(int i1, int i2) {
@@ -132,15 +129,17 @@ public class Graph {
     boolean search(Node first, Node end) {
         initMarks();
         Queue<Node> queue = new Queue<>();
+        marks[first.data] = true;
         queue.add(first);
+
         while (!queue.isEmpty()) {
             Node root = queue.remove();
             if (root == end) {
                 return true;
             }
             for (Node n : root.adjacent) {
-                if (n.marked == false) {
-                    n.marked = true;
+                if (marks[n.data] == false) {
+                    marks[n.data] = true;
                     queue.add(n);
                 }
             }
