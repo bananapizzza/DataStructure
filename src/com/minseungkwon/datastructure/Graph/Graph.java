@@ -10,12 +10,10 @@ public class Graph {
     class Node {
         int data;
         LinkedList<Node> adjacent;
-        boolean marked;
 
         Node(int data) {
             this.data = data;
             adjacent = new LinkedList<>();
-            marked = false;
         }
     }
 
@@ -44,17 +42,17 @@ public class Graph {
     }
 
     public String dfs(int index) {
-        initMarks();
+        boolean[] marks = new boolean[nodes.length];
         StringBuilder result = new StringBuilder();
         Stack<Node> stack = new Stack<>();
         Node root = nodes[index];
-        root.marked = true;
+        marks[root.data] = true;
         stack.push(root);
         while (!stack.isEmpty()) {
             Node r = stack.pop();
             for (Node n : r.adjacent) {
-                if (n.marked == false) {
-                    n.marked = true;
+                if (marks[n.data] == false) {
+                    marks[n.data] = true;
                     stack.push(n);
                 }
             }
@@ -66,26 +64,26 @@ public class Graph {
         return result.toString();
     }
 
-    private StringBuilder dfsRecursive(Node r, StringBuilder s) {
+    private StringBuilder dfsRecursive(Node r, StringBuilder s, boolean[] marks) {
         if (r == null) {
             return s;
         }
-        r.marked = true;
+        marks[r.data] = true;
         s.append(r.data);
         for (Node n : r.adjacent) {
-            if (n.marked == false) {
+            if (marks[n.data] == false) {
                 s.append(" -> ");
-                dfsRecursive(n, s);
+                dfsRecursive(n, s, marks);
             }
         }
         return s;
     }
 
     public String dfsRecursive(int index) {
-        initMarks();
+        boolean[] marks = new boolean[nodes.length];
         Node r = nodes[index];
         StringBuilder s = new StringBuilder();
-        return dfsRecursive(r, s).toString();
+        return dfsRecursive(r, s, marks).toString();
     }
 
     public String dfsRecursive() {
@@ -97,17 +95,17 @@ public class Graph {
     }
 
     public String bfs(int index) {
-        initMarks();
+        boolean[] marks = new boolean[nodes.length];
         StringBuilder result = new StringBuilder();
         Queue<Node> queue = new Queue<>();
         Node root = nodes[index];
-        root.marked = true;
+        marks[root.data] = true;
         queue.add(root);
         while (!queue.isEmpty()) {
             Node r = queue.remove();
             for (Node n : r.adjacent) {
-                if (n.marked == false) {
-                    n.marked = true;
+                if (marks[n.data] == false) {
+                    marks[n.data] = true;
                     queue.add(n);
                 }
             }
@@ -119,28 +117,24 @@ public class Graph {
         return result.toString();
     }
 
-    void initMarks() {
-        for (Node n : nodes) {
-            n.marked = false;
-        }
-    }
-
     public boolean search(int i1, int i2) {
         return search(nodes[i1], nodes[i2]);
     }
 
     boolean search(Node first, Node end) {
-        initMarks();
+        boolean[] marks = new boolean[nodes.length];
         Queue<Node> queue = new Queue<>();
+        marks[first.data] = true;
         queue.add(first);
+
         while (!queue.isEmpty()) {
             Node root = queue.remove();
             if (root == end) {
                 return true;
             }
             for (Node n : root.adjacent) {
-                if (n.marked == false) {
-                    n.marked = true;
+                if (marks[n.data] == false) {
+                    marks[n.data] = true;
                     queue.add(n);
                 }
             }
