@@ -18,7 +18,6 @@ public class Graph {
     }
 
     Node[] nodes;
-    boolean[] marks;
 
     Graph(int size) {
         nodes = new Node[size];
@@ -43,7 +42,7 @@ public class Graph {
     }
 
     public String dfs(int index) {
-        initMarks();
+        boolean[] marks = new boolean[nodes.length];
         StringBuilder result = new StringBuilder();
         Stack<Node> stack = new Stack<>();
         Node root = nodes[index];
@@ -65,7 +64,7 @@ public class Graph {
         return result.toString();
     }
 
-    private StringBuilder dfsRecursive(Node r, StringBuilder s) {
+    private StringBuilder dfsRecursive(Node r, StringBuilder s, boolean[] marks) {
         if (r == null) {
             return s;
         }
@@ -74,17 +73,17 @@ public class Graph {
         for (Node n : r.adjacent) {
             if (marks[n.data] == false) {
                 s.append(" -> ");
-                dfsRecursive(n, s);
+                dfsRecursive(n, s, marks);
             }
         }
         return s;
     }
 
     public String dfsRecursive(int index) {
-        initMarks();
+        boolean[] marks = new boolean[nodes.length];
         Node r = nodes[index];
         StringBuilder s = new StringBuilder();
-        return dfsRecursive(r, s).toString();
+        return dfsRecursive(r, s, marks).toString();
     }
 
     public String dfsRecursive() {
@@ -96,7 +95,7 @@ public class Graph {
     }
 
     public String bfs(int index) {
-        initMarks();
+        boolean[] marks = new boolean[nodes.length];
         StringBuilder result = new StringBuilder();
         Queue<Node> queue = new Queue<>();
         Node root = nodes[index];
@@ -118,16 +117,12 @@ public class Graph {
         return result.toString();
     }
 
-    void initMarks() {
-        marks = new boolean[nodes.length];
-    }
-
     public boolean search(int i1, int i2) {
         return search(nodes[i1], nodes[i2]);
     }
 
     boolean search(Node first, Node end) {
-        initMarks();
+        boolean[] marks = new boolean[nodes.length];
         Queue<Node> queue = new Queue<>();
         marks[first.data] = true;
         queue.add(first);
