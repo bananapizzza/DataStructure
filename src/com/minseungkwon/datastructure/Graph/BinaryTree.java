@@ -1,5 +1,8 @@
 package com.minseungkwon.datastructure.Graph;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 class Node<T> {
     T data;
     Node left;
@@ -74,7 +77,7 @@ public class BinaryTree<T extends Comparable> {
         return preoder(this.root, s).toString();
     }
 
-    public boolean searchBTree(T data){
+    public boolean searchBTree(T data) {
         return searchBTree(this.root, data);
     }
 
@@ -89,6 +92,68 @@ public class BinaryTree<T extends Comparable> {
         } else {
             return true;
         }
+    }
+
+    public String BSTtoListSolution1() {
+        ArrayList<LinkedList<Node>> result = new ArrayList<>();
+        StringBuilder s = new StringBuilder();
+        BSTtoListSolution1(result, root, 0);
+        for (LinkedList<Node> ll : result) {
+            for (Node n : ll) {
+                s.append(n.data);
+            }
+            s.append("/");
+        }
+        return s.toString();
+    }
+
+    ArrayList<LinkedList<Node>> BSTtoListSolution1(ArrayList<LinkedList<Node>> result, Node current, int level) {
+        LinkedList<Node> list = null;
+        if (current == null) {
+            return null;
+        }
+
+        if (result.size() == level) {
+            list = new LinkedList<>();
+            result.add(list);
+        } else {
+            list = result.get(level);
+        }
+        list.add(current);
+        BSTtoListSolution1(result, current.left, level + 1);
+        BSTtoListSolution1(result, current.right, level + 1);
+        return result;
+    }
+
+    public String BSTtoListSolution2() {
+        ArrayList<LinkedList<Node>> result = new ArrayList<>();
+        LinkedList<Node> current = new LinkedList<>();
+        if (root != null) {
+            current.add(root);
+        }
+
+        while (current.size() > 0) {
+            result.add(current);
+            LinkedList<Node> parents = current;
+            current = new LinkedList<>();
+            for (Node parent : parents) {
+                if (parent.left != null) {
+                    current.add(parent.left);
+                }
+                if (parent.right != null) {
+                    current.add(parent.right);
+                }
+            }
+        }
+
+        StringBuilder s = new StringBuilder();
+        for (LinkedList<Node> ll : result) {
+            for (Node n : ll) {
+                s.append(n.data);
+            }
+            s.append("/");
+        }
+        return s.toString();
     }
 }
 
