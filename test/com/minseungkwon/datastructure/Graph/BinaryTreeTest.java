@@ -1,4 +1,4 @@
-package com.minseungkwon.datastructure.Tree;
+package com.minseungkwon.datastructure.Graph;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
