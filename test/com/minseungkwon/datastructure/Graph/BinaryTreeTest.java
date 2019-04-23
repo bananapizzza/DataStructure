@@ -94,7 +94,7 @@ public class BinaryTreeTest {
     }
 
     @Test
-    public void test_BSTtoListSolution1() {
+    public void test_BSTtoListRecursive() {
         Integer[] arr = new Integer[10];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = i;
@@ -102,11 +102,11 @@ public class BinaryTreeTest {
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
-        assertEquals("4/17/0258/369/", bt.BSTtoListSolution1());
+        assertEquals("4/17/0258/369/", bt.BSTtoListRecursive());
     }
 
     @Test
-    public void test_BSTtoListSolution2() {
+    public void test_BSTtoList() {
         Integer[] arr = new Integer[10];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = i;
@@ -114,6 +114,6 @@ public class BinaryTreeTest {
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
-        assertEquals("4/17/0258/369/", bt.BSTtoListSolution2());
+        assertEquals("4/17/0258/369/", bt.BSTtoList());
     }
 }

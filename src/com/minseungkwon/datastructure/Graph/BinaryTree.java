@@ -94,20 +94,21 @@ public class BinaryTree<T extends Comparable> {
         }
     }
 
-    public String BSTtoListSolution1() {
+    public String BSTtoListRecursive() {
         ArrayList<LinkedList<Node>> result = new ArrayList<>();
         StringBuilder s = new StringBuilder();
-        BSTtoListSolution1(result, root, 0);
+        char separator = '/';
+        BSTtoListRecursive(result, root, 0);
         for (LinkedList<Node> ll : result) {
             for (Node n : ll) {
                 s.append(n.data);
             }
-            s.append("/");
+            s.append(separator);
         }
         return s.toString();
     }
 
-    ArrayList<LinkedList<Node>> BSTtoListSolution1(ArrayList<LinkedList<Node>> result, Node current, int level) {
+    ArrayList<LinkedList<Node>> BSTtoListRecursive(ArrayList<LinkedList<Node>> result, Node current, int level) {
         LinkedList<Node> list = null;
         if (current == null) {
             return null;
@@ -120,14 +121,15 @@ public class BinaryTree<T extends Comparable> {
             list = result.get(level);
         }
         list.add(current);
-        BSTtoListSolution1(result, current.left, level + 1);
-        BSTtoListSolution1(result, current.right, level + 1);
+        BSTtoListRecursive(result, current.left, level + 1);
+        BSTtoListRecursive(result, current.right, level + 1);
         return result;
     }
 
-    public String BSTtoListSolution2() {
+    public String BSTtoList() {
         ArrayList<LinkedList<Node>> result = new ArrayList<>();
         LinkedList<Node> current = new LinkedList<>();
+        char separator = '/';
         if (root != null) {
             current.add(root);
         }
@@ -151,7 +153,7 @@ public class BinaryTree<T extends Comparable> {
             for (Node n : ll) {
                 s.append(n.data);
             }
-            s.append("/");
+            s.append(separator);
         }
         return s.toString();
     }
