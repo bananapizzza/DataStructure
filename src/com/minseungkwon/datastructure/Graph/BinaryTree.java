@@ -7,6 +7,13 @@ class Node<T> {
     T data;
     Node left;
     Node right;
+
+    Node() {
+    }
+
+    Node(T data) {
+        this.data = data;
+    }
 }
 
 public class BinaryTree<T extends Comparable> {
@@ -156,6 +163,76 @@ public class BinaryTree<T extends Comparable> {
             s.append(separator);
         }
         return s.toString();
+    }
+
+    //Compare max length of left and max length of right
+    public boolean isBalancedUsingTwoRecursive() {
+        return isBalancedUsingTwoRecursive(root);
+    }
+
+    boolean isBalancedUsingTwoRecursive(Node root) {
+        if (root == null) {
+            return true;
+        }
+        if (Math.abs(getHeight(root.left) - getHeight(root.right)) > 1) {
+            return false;
+        }
+        return isBalancedUsingTwoRecursive(root.left) && isBalancedUsingTwoRecursive(root.right);
+    }
+
+    int getHeight(Node root) {
+        if (root == null) {
+            return -1;
+        }
+        return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
+    }
+
+    //Compare max length of left and max length of right
+    public boolean isBalancedUsingOneRecursive() {
+        return checkHeight(root) != Integer.MIN_VALUE;
+    }
+
+    int checkHeight(Node root) {
+        if (root == null) {
+            return -1;
+        }
+        int leftHeight = checkHeight(root.left);
+        if (leftHeight == Integer.MIN_VALUE) {
+            return leftHeight;
+        }
+        int rightHeight = checkHeight(root.right);
+        if (rightHeight == Integer.MIN_VALUE) {
+            return rightHeight;
+        }
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return Integer.MIN_VALUE;
+        }
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    //Compare min length of tree and max length of tree
+    public boolean isBalancedUsingObject() {
+        Level result = new Level();
+        isBalancedUsingObject(root, 0, result);
+        return (Math.abs(result.max - result.min) > 1) ? false : true;
+    }
+
+    void isBalancedUsingObject(Node root, int level, Level result) {
+        if (root == null) {
+            if (level < result.min) {
+                result.min = level;
+            } else if (level > result.max) {
+                result.max = level;
+            }
+            return;
+        }
+        isBalancedUsingObject(root.left, level + 1, result);
+        isBalancedUsingObject(root.right, level + 1, result);
+    }
+
+    class Level {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
     }
 }
 

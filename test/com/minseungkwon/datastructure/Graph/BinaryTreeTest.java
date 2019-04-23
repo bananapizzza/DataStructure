@@ -116,4 +116,80 @@ public class BinaryTreeTest {
 
         assertEquals("4/17/0258/369/", bt.BSTtoList());
     }
+
+    @Test
+    public void test_isBalancedUsingTwoRecursiveTrueCase() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(true, bt.isBalancedUsingTwoRecursive());
+    }
+
+    @Test
+    public void test_isBalancedUsingTwoRecursiveFalseCase() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        bt.getRoot().right.right.right.right = new Node(10);
+
+        assertEquals(false, bt.isBalancedUsingTwoRecursive());
+    }
+
+    @Test
+    public void test_isBalancedUsingOneRecursiveTrueCase() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(true, bt.isBalancedUsingOneRecursive());
+    }
+
+    @Test
+    public void test_isBalancedUsingOneRecursiveFalseCase() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        bt.getRoot().right.right.right.right = new Node(10);
+
+        assertEquals(false, bt.isBalancedUsingOneRecursive());
+    }
+
+    @Test
+    public void test_isBalancedUsingObjectTrueCase() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(true, bt.isBalancedUsingObject());
+    }
+
+    @Test
+    public void test_isBalancedUsingObjectFalseCase() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        bt.getRoot().right.right.right.right = new Node(10);
+        bt.getRoot().right.right.left = new Node(11);
+
+        assertEquals(false, bt.isBalancedUsingObject());
+    }
 }
