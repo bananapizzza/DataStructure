@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+
 public class BinaryTreeTest {
     @Test
     public void test_inorder() {
@@ -90,5 +91,29 @@ public class BinaryTreeTest {
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         assertEquals(false, bt.searchBTree(12));
+    }
+
+    @Test
+    public void test_BSTtoListRecursive() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals("4/17/0258/369/", bt.BSTtoListRecursive());
+    }
+
+    @Test
+    public void test_BSTtoList() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals("4/17/0258/369/", bt.BSTtoList());
     }
 }
