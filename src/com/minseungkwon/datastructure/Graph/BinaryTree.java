@@ -7,10 +7,18 @@ class Node<T> {
     T data;
     Node left;
     Node right;
+
+    Node() {
+    }
+
+    Node(T data) {
+        this.data = data;
+    }
 }
 
 public class BinaryTree<T extends Comparable> {
     private Node root;
+    private int size;
 
     public Node getRoot() {
         return root;
@@ -57,6 +65,7 @@ public class BinaryTree<T extends Comparable> {
 
     public void makeTree(T[] array) {
         this.root = makeTreeR(array, 0, array.length - 1);
+        this.size = array.length;
     }
 
     Node makeTreeR(T[] array, int start, int end) {
@@ -156,6 +165,74 @@ public class BinaryTree<T extends Comparable> {
             s.append(separator);
         }
         return s.toString();
+    }
+
+    public boolean isValidateBSTUsingInorder() {
+        Integer[] arr = new Integer[size];
+        Integer index = 0;
+        isValidateBSTUsingInorder(root, arr);
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < arr[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int index = 0;
+
+    void isValidateBSTUsingInorder(Node root, Integer[] arr) {
+        if (root == null) {
+            return;
+        }
+        isValidateBSTUsingInorder(root.left, arr);
+        arr[index] = (Integer) root.data;
+        index++;
+        isValidateBSTUsingInorder(root.right, arr);
+    }
+
+    public void addSize() {
+        this.size++;
+    }
+
+    Integer previous = null;
+
+    public boolean isValidateBSTWithoutArray() {
+        return isValidateBSTWithoutArray(root);
+    }
+
+    boolean isValidateBSTWithoutArray(Node root) {
+        if (root == null) {
+            return true;
+        }
+        if (!isValidateBSTWithoutArray(root.left)) {
+            return false;
+        }
+        if (previous != null && previous > (Integer) root.data) {
+            return false;
+        }
+        previous = (Integer) root.data;
+        if (!isValidateBSTWithoutArray(root.right)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isValidateBSTWithMinMax() {
+        return isValidateBSTWithMinMax(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    boolean isValidateBSTWithMinMax(Node root, Integer min, Integer max) {
+        if (root == null) {
+            return true;
+        }
+        if ((Integer) root.data < min || (Integer) root.data > max) {
+            return false;
+        }
+        if (!isValidateBSTWithMinMax(root.left, min, (Integer) root.data) || !isValidateBSTWithMinMax(root.right, (Integer) root.data, max)) {
+            return false;
+        }
+        return true;
     }
 }
 
