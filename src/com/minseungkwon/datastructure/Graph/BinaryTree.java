@@ -7,6 +7,8 @@ class Node<T> {
     T data;
     Node left;
     Node right;
+    Node parent;
+
 
     Node() {
     }
@@ -64,19 +66,20 @@ public class BinaryTree<T extends Comparable> {
     }
 
     public void makeTree(T[] array) {
-        this.root = makeTreeR(array, 0, array.length - 1);
+        this.root = makeTreeR(array, 0, array.length - 1, null);
         this.size = array.length;
     }
 
-    Node makeTreeR(T[] array, int start, int end) {
+    Node makeTreeR(T[] array, int start, int end, Node parent) {
         if (start > end) {
             return null;
         }
         int mid = (start + end) / 2;
         Node n = new Node();
         n.data = array[mid];
-        n.left = makeTreeR(array, start, mid - 1);
-        n.right = makeTreeR(array, mid + 1, end);
+        n.parent = parent;
+        n.left = makeTreeR(array, start, mid - 1, n);
+        n.right = makeTreeR(array, mid + 1, end, n);
         return n;
     }
 
@@ -233,6 +236,7 @@ public class BinaryTree<T extends Comparable> {
             return false;
         }
         return true;
+    }
 
     //Compare max length of left and max length of right
     public boolean isBalancedUsingTwoRecursive() {
@@ -280,6 +284,7 @@ public class BinaryTree<T extends Comparable> {
     }
 
     //Compare min length of tree and max length of tree
+
     public boolean isBalancedUsingObject() {
         Level result = new Level();
         isBalancedUsingObject(root, 0, result);
@@ -302,6 +307,34 @@ public class BinaryTree<T extends Comparable> {
     class Level {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
+    }
+
+    public Node findNext(Node node) {
+        if (node == null) {
+            return null;
+        }
+        if (node.right == null) {
+            return findAbove(node.parent, node);
+        } else {
+            return findBelow(node.right);
+        }
+    }
+
+    Node findAbove(Node root, Node child) {
+        if (root == null) {
+            return null;
+        }
+        if (child == root.left) {
+            return root;
+        }
+        return findAbove(root.parent, root);
+    }
+
+    Node findBelow(Node root) {
+        if (root.left == null) {
+            return root;
+        }
+        return findBelow(root.left);
     }
 }
 

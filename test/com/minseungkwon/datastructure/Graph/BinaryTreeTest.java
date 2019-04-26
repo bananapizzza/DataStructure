@@ -112,10 +112,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTUsingInorderTrueCase() {
-        Integer[] arr = new Integer[10];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
-        }
+        Integer[] arr = makeArrayForTree();
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -124,10 +121,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTUsingInorderFalseCase() {
-        Integer[] arr = new Integer[10];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
-        }
+        Integer[] arr = makeArrayForTree();
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.left = new Node(10);
@@ -138,10 +132,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTWithoutArrayTrueCase() {
-        Integer[] arr = new Integer[10];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
-        }
+        Integer[] arr = makeArrayForTree();
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -150,10 +141,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTWithoutArrayFalseCase() {
-        Integer[] arr = new Integer[10];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
-        }
+        Integer[] arr = makeArrayForTree();
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.left = new Node(10);
@@ -164,10 +152,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTWithMinMaxTrueCase() {
-        Integer[] arr = new Integer[10];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
-        }
+        Integer[] arr = makeArrayForTree();
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -176,10 +161,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTWithMinMaxFalseCase() {
-        Integer[] arr = new Integer[10];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
-        }
+        Integer[] arr = makeArrayForTree();
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.left = new Node(10);
@@ -266,5 +248,17 @@ public class BinaryTreeTest {
         bt.getRoot().right.right.left = new Node(11);
 
         assertFalse(bt.isBalancedUsingObject());
+    }
+
+    @Test
+    public void findNext(){
+        Integer[] arr = makeArrayForTree();
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        assertEquals(4, bt.findNext(bt.getRoot().left.right.right).data);
+        assertEquals(2, bt.findNext(bt.getRoot().left).data);
+        assertEquals(5, bt.findNext(bt.getRoot()).data);
+        assertEquals(1, bt.findNext(bt.getRoot().left.left).data);
+        assertEquals(7, bt.findNext(bt.getRoot().right.left.right).data);
     }
 }
