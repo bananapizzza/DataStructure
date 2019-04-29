@@ -1,6 +1,7 @@
 package com.minseungkwon.datastructure.Graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 class Node<T> {
@@ -21,6 +22,7 @@ class Node<T> {
 public class BinaryTree<T extends Comparable> {
     private Node root;
     private int size;
+    private HashMap<Integer, Node> rootMap;
 
     public Node getRoot() {
         return root;
@@ -66,6 +68,7 @@ public class BinaryTree<T extends Comparable> {
     }
 
     public void makeTree(T[] array) {
+        this.rootMap = new HashMap<>();
         this.root = makeTreeR(array, 0, array.length - 1, null);
         this.size = array.length;
     }
@@ -80,7 +83,12 @@ public class BinaryTree<T extends Comparable> {
         n.parent = parent;
         n.left = makeTreeR(array, start, mid - 1, n);
         n.right = makeTreeR(array, mid + 1, end, n);
+        rootMap.put((Integer) n.data, n);
         return n;
+    }
+
+    public Node getNode(Integer i) {
+        return rootMap.get(i);
     }
 
     @Override
@@ -335,6 +343,147 @@ public class BinaryTree<T extends Comparable> {
             return root;
         }
         return findBelow(root.left);
+    }
+
+    public Node findCommonAncestorUsingDepth(int d1, int d2) {
+        Node n1 = getNode(d1);
+        Node n2 = getNode(d2);
+        int depth1 = findDepth(n1);
+        int depth2 = findDepth(n2);
+
+        if (depth1 > depth2) {
+            n1 = goUpward(n1, depth1 - depth2);
+        }
+        if (depth2 > depth1) {
+            n2 = goUpward(n2, depth2 - depth1);
+        }
+        while (n1 != n2 && n1 != null && n2 != null) {
+            n1 = n1.parent;
+            n2 = n2.parent;
+        }
+        return n1 == null || n2 == null ? null : n1;
+    }
+
+    int findDepth(Node n) {
+        int depth = 0;
+        while (n != null) {
+            n = n.parent;
+            depth++;
+        }
+        return depth;
+    }
+
+    Node goUpward(Node n, int depth) {
+        for (int i = 0; i < depth; i++) {
+            n = n.parent;
+        }
+        return n;
+    }
+
+    public Node findCommonAncestorUsingSibling(int d1, int d2) {
+        Node n1 = getNode(d1);
+        Node n2 = getNode(d2);
+        if (!covers(root, n1) || !covers(root, n2)) {
+            return null;
+        } else if (covers(n1, n2)) {
+            return n1;
+        } else if (covers(n2, n1)) {
+            return n2;
+        }
+        Node sibling = getSibling(n1);
+        Node parent = n1.parent;
+        while (!covers(sibling, n2)) {
+            sibling = getSibling(parent);
+            parent = parent.parent;
+        }
+        return parent;
+    }
+
+    Node getSibling(Node n) {
+        if (n == null || n.parent == null) {
+            return null;
+        }
+        Node parent = n.parent;
+        return parent.left == n ? parent.right : parent.left;
+    }
+
+    boolean covers(Node root, Node find) {
+        if (root == null) {
+            return false;
+        }
+        if (root == find) {
+            return true;
+        }
+        return covers(root.left, find) || covers(root.right, find);
+    }
+
+    public Node findCommonAncestorWithParent(int d1, int d2) {
+        Node n1 = getNode(d1);
+        Node n2 = getNode(d2);
+        if (!covers(root, n1) || !covers(root, n2)) {
+            return null;
+        }
+        return ancestorHelper(root, n1, n2);
+    }
+
+    Node ancestorHelper(Node root, Node n1, Node n2) {
+        if (root == null || root == n1 || root == n2) {
+            return root;
+        }
+
+        boolean nodeOneInLeft = covers(root.left, n1);
+        boolean nodeTwoInLeft = covers(root.left, n2);
+        if (nodeOneInLeft != nodeTwoInLeft) {
+            return root;
+        }
+        return nodeOneInLeft ? ancestorHelper(root.left, n1, n2) : ancestorHelper(root.right, n1, n2);
+    }
+
+    class Result {
+        Node node;
+        boolean foundAncestor;
+
+        Result(Node n, boolean found) {
+            node = n;
+            foundAncestor = found;
+        }
+    }
+
+    public Node findCommonAncestorUsingPostOrder(int d1, int d2) {
+        Node n1 = getNode(d1);
+        Node n2 = getNode(d2);
+
+        Result r = findCommonAncestorUsingPostOrder(root, n1, n2);
+        if (r.foundAncestor) {
+            return r.node;
+        }
+        return null;
+    }
+
+    Result findCommonAncestorUsingPostOrder(Node root, Node n1, Node n2) {
+        if (root == null) {
+            return new Result(null, false);
+        }
+        if (root == n1 && root == n2) {
+            return new Result(n1, true);
+        }
+        Result rLeft = findCommonAncestorUsingPostOrder(root.left, n1, n2);
+        if (rLeft.foundAncestor) {
+            return rLeft;
+        }
+        Result rRight = findCommonAncestorUsingPostOrder(root.right, n1, n2);
+        if (rRight.foundAncestor) {
+            return rRight;
+        }
+        if (rLeft.node != null && rRight.node != null) {
+            return new Result(root, true);
+        } else if (root == n1 || root == n2) {
+            boolean isAncestor = rLeft.node != null || rRight.node != null;
+            return new Result(root, isAncestor);
+        } else {
+            return new Result(rLeft.node != null ? rLeft.node : rRight.node, false);
+        }
+
     }
 }
 
