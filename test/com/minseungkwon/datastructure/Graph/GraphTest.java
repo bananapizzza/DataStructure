@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+
 public class GraphTest {
     @Test
     public void test_dfs() {
@@ -137,5 +139,19 @@ public class GraphTest {
         g.addAdjacent(5, 7);
         g.addAdjacent(6, 8);
         assertEquals(false, g.search(1, 8));
+    }
+
+    @Test
+    public void test_projectManager() {
+        String[] projectName = {"a", "b", "c", "d", "e", "f", "g"};
+        String[][] dependencies = {{"f", "a"}, {"f", "b"}, {"f", "c"}, {"b", "a"}, {"c", "a"}, {"a", "e"}, {"b", "e"}, {"d", "g"}};
+        ProjectManager pm = new ProjectManager(projectName, dependencies);
+        HashMap<String, Project> projects = pm.getProjects();
+        Project[] result = pm.buildOrder();
+        StringBuilder s = new StringBuilder();
+        for (Project p : result) {
+            s.append(p.getName());
+        }
+        assertEquals("fbcadeg", s.toString());
     }
 }
