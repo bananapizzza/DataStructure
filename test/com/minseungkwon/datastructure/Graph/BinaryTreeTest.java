@@ -251,14 +251,72 @@ public class BinaryTreeTest {
     }
 
     @Test
-    public void findNext(){
+    public void test_findNext() {
         Integer[] arr = makeArrayForTree();
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
-        assertEquals(4, bt.findNext(bt.getRoot().left.right.right).data);
-        assertEquals(2, bt.findNext(bt.getRoot().left).data);
-        assertEquals(5, bt.findNext(bt.getRoot()).data);
-        assertEquals(1, bt.findNext(bt.getRoot().left.left).data);
-        assertEquals(7, bt.findNext(bt.getRoot().right.left.right).data);
+
+        Node next = bt.getNode(0);
+
+        for (int i = 1; i < arr.length; i++) {
+            next = bt.findNext(next);
+            assertEquals(i, next.data);
+        }
+    }
+
+    @Test
+    public void test_findCommonAncestorUsingDepth() {
+        Integer[] arr = makeArrayForTree();
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(1, bt.findCommonAncestorUsingDepth(0, 3).data);
+        assertEquals(4, bt.findCommonAncestorUsingDepth(2, 8).data);
+        assertEquals(4, bt.findCommonAncestorUsingDepth(4, 5).data);
+        assertEquals(7, bt.findCommonAncestorUsingDepth(6, 9).data);
+        assertEquals(7, bt.findCommonAncestorUsingDepth(7, 9).data);
+        assertEquals(null, bt.findCommonAncestorUsingDepth(7, 11));
+    }
+
+    @Test
+    public void test_findCommonAncestorUsingSibling() {
+        Integer[] arr = makeArrayForTree();
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(1, bt.findCommonAncestorUsingSibling(0, 3).data);
+        assertEquals(4, bt.findCommonAncestorUsingSibling(2, 8).data);
+        assertEquals(4, bt.findCommonAncestorUsingSibling(4, 5).data);
+        assertEquals(7, bt.findCommonAncestorUsingSibling(6, 9).data);
+        assertEquals(7, bt.findCommonAncestorUsingSibling(7, 9).data);
+        assertEquals(null, bt.findCommonAncestorUsingSibling(7, 11));
+    }
+
+    @Test
+    public void test_findCommonAncestorWithoutParent() {
+        Integer[] arr = makeArrayForTree();
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(1, bt.findCommonAncestorWithParent(0, 3).data);
+        assertEquals(4, bt.findCommonAncestorWithParent(2, 8).data);
+        assertEquals(4, bt.findCommonAncestorWithParent(4, 5).data);
+        assertEquals(7, bt.findCommonAncestorWithParent(6, 9).data);
+        assertEquals(7, bt.findCommonAncestorWithParent(7, 9).data);
+        assertEquals(null, bt.findCommonAncestorWithParent(7, 11));
+    }
+
+    @Test
+    public void test_findCommonAncestorUsingPostOrder() {
+        Integer[] arr = makeArrayForTree();
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(1, bt.findCommonAncestorUsingPostOrder(0, 3).data);
+        assertEquals(4, bt.findCommonAncestorUsingPostOrder(2, 8).data);
+        assertEquals(4, bt.findCommonAncestorUsingPostOrder(4, 5).data);
+        assertEquals(7, bt.findCommonAncestorUsingPostOrder(6, 9).data);
+        assertEquals(7, bt.findCommonAncestorUsingPostOrder(7, 9).data);
+        assertEquals(null, bt.findCommonAncestorUsingPostOrder(7, 11));
     }
 }
