@@ -2,12 +2,15 @@ package com.minseungkwon.datastructure.Graph;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import static org.junit.Assert.*;
 
 
 public class BinaryTreeTest {
-    public Integer[] makeArrayForTree() {
-        Integer[] arr = new Integer[10];
+    public Integer[] makeArrayForTree(int size) {
+        Integer[] arr = new Integer[size];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = i;
         }
@@ -70,7 +73,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_makeTree() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         assertEquals("4102375689", bt.toString());
@@ -78,7 +81,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_searchBTreeWithExistentData() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         assertEquals(true, bt.searchBTree(2));
@@ -86,7 +89,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_searchBTreeWithoutExistentData() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         assertFalse(bt.searchBTree(12));
@@ -94,7 +97,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_BSTtoListRecursive() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -103,7 +106,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_BSTtoList() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -112,7 +115,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTUsingInorderTrueCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -121,7 +124,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTUsingInorderFalseCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.left = new Node(10);
@@ -132,7 +135,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTWithoutArrayTrueCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -141,7 +144,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTWithoutArrayFalseCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.left = new Node(10);
@@ -152,7 +155,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTWithMinMaxTrueCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -161,7 +164,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isValidateBSTWithMinMaxFalseCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.left = new Node(10);
@@ -172,7 +175,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isBalancedUsingTwoRecursiveTrueCase1() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.right = new Node(10);
@@ -183,7 +186,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isBalancedUsingTwoRecursiveTrueCase2() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -192,7 +195,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isBalancedUsingTwoRecursiveFalseCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.right = new Node(10);
@@ -202,7 +205,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isBalancedUsingOneRecursiveTrueCase1() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -211,7 +214,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isBalancedUsingOneRecursiveTrueCase2() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.right = new Node(10);
@@ -222,7 +225,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isBalancedUsingOneRecursiveFalseCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.right = new Node(10);
@@ -232,7 +235,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isBalancedUsingObjectTrueCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -241,7 +244,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_isBalancedUsingObjectFalseCase() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         bt.getRoot().right.right.right.right = new Node(10);
@@ -252,7 +255,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_findNext() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -266,7 +269,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_findCommonAncestorUsingDepth() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -280,7 +283,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_findCommonAncestorUsingSibling() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -294,7 +297,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_findCommonAncestorWithoutParent() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -308,7 +311,7 @@ public class BinaryTreeTest {
 
     @Test
     public void test_findCommonAncestorUsingPostOrder() {
-        Integer[] arr = makeArrayForTree();
+        Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
@@ -318,5 +321,21 @@ public class BinaryTreeTest {
         assertEquals(7, bt.findCommonAncestorUsingPostOrder(6, 9).data);
         assertEquals(7, bt.findCommonAncestorUsingPostOrder(7, 9).data);
         assertEquals(null, bt.findCommonAncestorUsingPostOrder(7, 11));
+    }
+
+    @Test
+    public void test_findAllCombination(){
+        Integer[] arr = makeArrayForTree(5);
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        ArrayList<LinkedList<Node>> result = bt.findAllCombination(bt.getRoot());
+        StringBuilder s = new StringBuilder();
+        for(LinkedList<Node> ll : result){
+            for(Node n : ll){
+                s.append(n.data);
+            }
+            s.append(" ");
+        }
+        assertEquals("20134 20314 20341 23014 23041 23401 ", s.toString());
     }
 }
