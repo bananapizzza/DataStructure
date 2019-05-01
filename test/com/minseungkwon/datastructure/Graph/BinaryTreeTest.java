@@ -9,6 +9,14 @@ import static org.junit.Assert.*;
 
 
 public class BinaryTreeTest {
+    public Integer[] makeArrayForTree() {
+        Integer[] arr = new Integer[10];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        return arr;
+    }
+
     public Integer[] makeArrayForTree(int size) {
         Integer[] arr = new Integer[size];
         for (int i = 0; i < arr.length; i++) {
@@ -324,18 +332,80 @@ public class BinaryTreeTest {
     }
 
     @Test
-    public void test_findAllCombination(){
+    public void test_findAllCombination() {
         Integer[] arr = makeArrayForTree(5);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
         ArrayList<LinkedList<Node>> result = bt.findAllCombination(bt.getRoot());
         StringBuilder s = new StringBuilder();
-        for(LinkedList<Node> ll : result){
-            for(Node n : ll){
+        for (LinkedList<Node> ll : result) {
+            for (Node n : ll) {
                 s.append(n.data);
             }
             s.append(" ");
         }
         assertEquals("20134 20314 20341 23014 23041 23401 ", s.toString());
+    }
+
+    @Test
+    public void test_findAllCombination2() {
+        Integer[] arr = makeArrayForTree(5);
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+        ArrayList<LinkedList<Node>> results = bt.findAllCombination2(bt.getRoot());
+        LinkedList<String> expected = new LinkedList<>();
+        expected.add("20134");
+        expected.add("20314");
+        expected.add("20341");
+        expected.add("23014");
+        expected.add("23041");
+        expected.add("23401");
+        int index = 0;
+
+        for (LinkedList<Node> ll : results) {
+            StringBuilder s = new StringBuilder();
+            for (Node n : ll) {
+                s.append(n.data);
+            }
+            assertEquals(expected.get(index), s.toString());
+            index++;
+        }
+    }
+
+    @Test
+    public void test_weaveList2() {
+        Integer[] arr = makeArrayForTree(5);
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        LinkedList<Node> left = new LinkedList<>();
+        left.add(new Node(0));
+        left.add(new Node(1));
+        LinkedList<Node> right = new LinkedList<>();
+        right.add(new Node(3));
+        right.add(new Node(4));
+        ArrayList<LinkedList<Node>> results = new ArrayList<>();
+        LinkedList<Node> prefix = new LinkedList<>();
+        prefix.add(new Node(2));
+
+        bt.weaveList2(left, right, results, prefix);
+
+        LinkedList<String> expected = new LinkedList<>();
+        expected.add("20134");
+        expected.add("20314");
+        expected.add("20341");
+        expected.add("23014");
+        expected.add("23041");
+        expected.add("23401");
+        int index = 0;
+
+        for (LinkedList<Node> ll : results) {
+            StringBuilder s = new StringBuilder();
+            for (Node n : ll) {
+                s.append(n.data);
+            }
+            assertEquals(expected.get(index), s.toString());
+            index++;
+        }
     }
 }
