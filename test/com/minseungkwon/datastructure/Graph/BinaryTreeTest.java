@@ -25,6 +25,14 @@ public class BinaryTreeTest {
         return arr;
     }
 
+    public Integer[] makeArrayForTree(int start, int end) {
+        Integer[] arr = new Integer[end - start + 1];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = start++;
+        }
+        return arr;
+    }
+
     @Test
     public void test_inorder() {
         BinaryTree<Integer> bt = new BinaryTree();
@@ -407,5 +415,31 @@ public class BinaryTreeTest {
             assertEquals(expected.get(index), s.toString());
             index++;
         }
+    }
+
+    @Test
+    public void test_containSubtreeTrueCase() {
+        Integer[] arr = makeArrayForTree(10);
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        Integer[] arr2 = makeArrayForTree(5, 9);
+        BinaryTree<Integer> bt2 = new BinaryTree<>();
+        bt2.makeTree(arr2);
+
+        assertTrue(bt.containSubtree(bt2));
+    }
+
+    @Test
+    public void test_containSubtreeFalseCase() {
+        Integer[] arr = makeArrayForTree(10);
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        Integer[] arr2 = makeArrayForTree(7, 9);
+        BinaryTree<Integer> bt2 = new BinaryTree<>();
+        bt2.makeTree(arr2);
+
+        assertFalse(bt.containSubtree(bt2));
     }
 }

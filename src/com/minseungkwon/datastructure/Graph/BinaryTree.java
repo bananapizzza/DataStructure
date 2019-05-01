@@ -572,5 +572,36 @@ public class BinaryTree<T extends Comparable> {
         prefix.removeLast();
         right.addFirst(rightNode);
     }
+
+    public boolean containSubtree(BinaryTree t) {
+        if (this.root == null) {
+            return false;
+        }
+        if (t == null) {
+            return true;
+        }
+        return findSubtree(this.root, t.getRoot());
+    }
+
+    boolean findSubtree(Node t1, Node t2) {
+        if (t1 == null) {
+            return false;
+        }
+        if (t1.data == t2.data && matchTree(t1, t2)) {
+            return true;
+        }
+        return findSubtree(t1.left, t2) || findSubtree(t1.right, t2);
+    }
+
+    boolean matchTree(Node t1, Node t2) {
+        if (t1 == null && t2 == null) {
+            return true;
+        } else if (t1 == null || t2 == null) {
+            return false;
+        } else if (t1.data != t2.data) {
+            return false;
+        }
+        return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
+    }
 }
 
