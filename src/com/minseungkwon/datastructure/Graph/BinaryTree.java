@@ -1,5 +1,6 @@
 package com.minseungkwon.datastructure.Graph;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -483,7 +484,93 @@ public class BinaryTree<T extends Comparable> {
         } else {
             return new Result(rLeft.node != null ? rLeft.node : rRight.node, false);
         }
+    }
 
+    public ArrayList<LinkedList<Node>> findAllCombination(Node root) {
+        ArrayList<LinkedList<Node>> results = new ArrayList<>();
+        if (root == null) {
+            results.add(new LinkedList<>());
+            return results;
+        }
+        LinkedList<Node> prefix = new LinkedList<>();
+        prefix.add(root);
+        ArrayList<LinkedList<Node>> leftSeq = findAllCombination(root.left);
+        ArrayList<LinkedList<Node>> rightSeq = findAllCombination(root.right);
+
+        for (LinkedList<Node> left : leftSeq) {
+            for (LinkedList<Node> right : rightSeq) {
+                ArrayList<LinkedList<Node>> weaved = new ArrayList<>();
+                weaveLists(left, right, weaved, prefix);
+                results.addAll(weaved);
+            }
+        }
+        return results;
+    }
+
+    void weaveLists(LinkedList<Node> left, LinkedList<Node> right, ArrayList<LinkedList<Node>> weaved, LinkedList<Node> prefix) {
+        if (left.size() == 0 || right.size() == 0) {
+            LinkedList<Node> result = new LinkedList<>();
+            for (Node n : prefix) {
+                result.add(n);
+            }
+            result.addAll(left);
+            result.addAll(right);
+            weaved.add(result);
+            return;
+        }
+        Node headLeft = left.removeFirst();
+        prefix.addLast(headLeft);
+        weaveLists(left, right, weaved, prefix);
+        prefix.removeLast();
+        left.addFirst(headLeft);
+
+        Node headRight = right.removeFirst();
+        prefix.addLast(headRight);
+        weaveLists(left, right, weaved, prefix);
+        prefix.removeLast();
+        right.addFirst(headRight);
+    }
+
+    public ArrayList<LinkedList<Node>> findAllCombination2(Node root) {
+        ArrayList<LinkedList<Node>> results = new ArrayList<>();
+        if (root == null) {
+            LinkedList<Node> result = new LinkedList<>();
+            results.add(result);
+            return results;
+        }
+        LinkedList<Node> prefix = new LinkedList<>();
+        prefix.add(root);
+        ArrayList<LinkedList<Node>> leftSeq = findAllCombination2(root.left);
+        ArrayList<LinkedList<Node>> rightSeq = findAllCombination2(root.right);
+        for (LinkedList<Node> left : leftSeq) {
+            for (LinkedList<Node> right : rightSeq) {
+                weaveList2(left, right, results, prefix);
+            }
+        }
+        return results;
+    }
+
+    void weaveList2(LinkedList<Node> left, LinkedList<Node> right, ArrayList<LinkedList<Node>> results, LinkedList<Node> prefix) {
+        if (left.size() == 0 || right.size() == 0) {
+            LinkedList<Node> result = new LinkedList<>();
+
+            result.addAll(prefix);
+            result.addAll(left);
+            result.addAll(right);
+            results.add(result);
+            return;
+        }
+        Node leftNode = left.removeFirst();
+        prefix.add(leftNode);
+        weaveList2(left, right, results, prefix);
+        prefix.removeLast();
+        left.addFirst(leftNode);
+
+        Node rightNode = right.removeFirst();
+        prefix.add(rightNode);
+        weaveList2(left, right, results, prefix);
+        prefix.removeLast();
+        right.addFirst(rightNode);
     }
 }
 
