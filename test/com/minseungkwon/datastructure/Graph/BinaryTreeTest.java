@@ -442,4 +442,34 @@ public class BinaryTreeTest {
 
         assertFalse(bt.containSubtree(bt2));
     }
+
+    @Test
+    public void test_countPathWithSumUsingTwoRecursive() {
+        Integer[] arr = makeArrayForTree(10);
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(2, bt.countPathWithSumUsingTwoRecursive(3));
+        assertEquals(4, bt.countPathWithSumUsingTwoRecursive(5));
+    }
+
+    @Test
+    public void test_countPathWithSumUsingArray() {
+        Integer[] arr = makeArrayForTree(10);
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(2, bt.countPathWithSumUsingArray(3));
+        assertEquals(4, bt.countPathWithSumUsingArray(5));
+    }
+
+    @Test
+    public void test_countPathWithSumUsingHashMapy() {
+        Integer[] arr = makeArrayForTree(10);
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.makeTree(arr);
+
+        assertEquals(2, bt.countPathWithSumUsingHashMap(3));
+        assertEquals(4, bt.countPathWithSumUsingHashMap(5));
+    }
 }
