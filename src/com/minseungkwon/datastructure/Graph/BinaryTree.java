@@ -1,6 +1,5 @@
 package com.minseungkwon.datastructure.Graph;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -602,6 +601,106 @@ public class BinaryTree<T extends Comparable> {
             return false;
         }
         return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
+    }
+
+    public int countPathWithSumUsingTwoRecursive(int targetSum) {
+        if (this.root == null) {
+            return 0;
+        }
+        return countPathWithSumUsingTwoRecursive(root, targetSum);
+    }
+
+    int countPathWithSumUsingTwoRecursive(Node root, int targetSum) {
+        if (root == null) {
+            return 0;
+        }
+        int countPath = countPathWithSumFromNode(root, targetSum, 0);
+        countPath += countPathWithSumUsingTwoRecursive(root.left, targetSum);
+        countPath += countPathWithSumUsingTwoRecursive(root.right, targetSum);
+        return countPath;
+    }
+
+    int countPathWithSumFromNode(Node root, int targetSum, int curSum) {
+        if (root == null) {
+            return 0;
+        }
+        curSum += (int) root.data;
+        int countPath = 0;
+        if (curSum == targetSum) {
+            countPath++;
+        }
+        countPath += countPathWithSumFromNode(root.left, targetSum, curSum);
+        countPath += countPathWithSumFromNode(root.right, targetSum, curSum);
+        return countPath;
+    }
+
+    public int countPathWithSumUsingArray(int targetSum) {
+        if (this.root == null) {
+            return 0;
+        }
+        ArrayList<Integer> array = new ArrayList<>();
+        return countPathWithSumUsingArray(root, targetSum, array);
+    }
+
+    int countPathWithSumUsingArray(Node root, int targetSum, ArrayList<Integer> array) {
+        if (this.root == null) {
+            return 0;
+        }
+        addDataToArray(array, (int) root.data);
+        int countPath = searchDataFromArray(array, targetSum);
+        countPath += countPathWithSumUsingArray(root.left, targetSum, array);
+        countPath += countPathWithSumUsingArray(root.right, targetSum, array);
+        removeDataFromArray(array);
+        return countPath;
+    }
+
+    void addDataToArray(ArrayList<Integer> array, int data) {
+        for (int i = 0; i < array.size(); i++) {
+            array.set(i, array.get(i) + data);
+        }
+        array.add(data);
+    }
+
+    int searchDataFromArray(ArrayList<Integer> array, int targetSum) {
+        int count = 0;
+        for (int i = 0; i < array.size(); i++) {
+            if (array.get(i) == targetSum) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    void removeDataFromArray(ArrayList<Integer> array) {
+        int data = array.remove(array.size() - 1);
+        for (int i = 0; i < array.size(); i++) {
+            array.set(i, array.get(i) - data);
+        }
+    }
+
+    public int countPathWithSumUsingHashMap(int targetSum) {
+        if (this.root == null) {
+            return 0;
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        return countPathWithSumUsingHashMap(root, targetSum, 0, map);
+    }
+
+    int countPathWithSumUsingHashMap(Node root, int targetSum, int curSum, HashMap<Integer, Integer> map) {
+        if (root == null) {
+            return 0;
+        }
+        curSum += (int) root.data;
+        map.put(curSum, map.getOrDefault(curSum, 0) + 1);
+        int countPath = map.getOrDefault(curSum - targetSum, 0);
+        countPath += countPathWithSumUsingHashMap(root.left, targetSum, curSum, map);
+        countPath += countPathWithSumUsingHashMap(root.right, targetSum, curSum, map);
+        map.put(curSum, map.get(curSum) - 1);
+        if (map.get(curSum) == 0) {
+            map.remove(curSum);
+        }
+        return countPath;
     }
 }
 
