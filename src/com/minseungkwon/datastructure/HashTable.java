@@ -61,6 +61,6 @@ public class HashTable {
         int hashcode = getHashCode(key);
         int index = getIndex(hashcode);
         Node n = searchKey(data[index], key);
-        return n == null ? "Not found" : n.value;
+        return n == null ? null : n.value;
     }
 }

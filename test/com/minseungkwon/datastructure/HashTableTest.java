@@ -32,7 +32,7 @@ public class HashTableTest {
         h.put("hee", "she is an angel");
         h.put("min", "she is cute");
 
-        assertEquals("Not found", h.get("jae"));
+        assertEquals(null, h.get("jae"));
     }
 
     @Test
