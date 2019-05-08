@@ -1,5 +1,4 @@
 package com.minseungkwon.datastructure;
-
 import java.util.LinkedList;
 
 enum AnimalType {
