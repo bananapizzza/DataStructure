@@ -34,4 +34,18 @@ public class CheckStringTest {
         assertFalse(cs.isUniqueUsingBitOperator(str1));
         assertTrue(cs.isUniqueUsingBitOperator(str2));
     }
+
+    @Test
+    public void test_permutationUsingSort() {
+        CheckString cs = new CheckString();
+        assertTrue(cs.permutationUsingSort("ABC", "BCA"));
+        assertFalse(cs.permutationUsingSort("ABC", "BDA"));
+    }
+
+    @Test
+    public void test_permutationUsingArray() {
+        CheckString cs = new CheckString();
+        assertTrue(cs.permutationUsingArray("ABC", "BCA"));
+        assertFalse(cs.permutationUsingArray("ABC", "BDA"));
+    }
 }

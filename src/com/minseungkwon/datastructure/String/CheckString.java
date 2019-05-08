@@ -45,4 +45,36 @@ public class CheckString {
         }
         return true;
     }
+
+    //Using sort
+    public boolean permutationUsingSort(String s1, String s2) {
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+        return sort(s1).equals(sort(s2));
+    }
+
+    private String sort(String str) {
+        char[] c = str.toCharArray();
+        java.util.Arrays.sort(c);
+        return new String(c);
+    }
+
+    //Using array when the strings are made of ASCII code
+    public boolean permutationUsingArray(String s1, String s2) {
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+        int[] letters = new int[128];
+        for (char c : s1.toCharArray()) {
+            letters[c]++;
+        }
+        for (char c : s2.toCharArray()) {
+            letters[c]--;
+            if (letters[c] < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
