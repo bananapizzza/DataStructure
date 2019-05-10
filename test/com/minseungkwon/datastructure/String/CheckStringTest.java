@@ -48,4 +48,34 @@ public class CheckStringTest {
         assertTrue(cs.permutationUsingArray("ABC", "BCA"));
         assertFalse(cs.permutationUsingArray("ABC", "BDA"));
     }
+
+    @Test
+    public void test_urlify() {
+        CheckString cs = new CheckString();
+        assertEquals("Mr%20John%20Smith", cs.urlify("Mr John Smith    ", 13));
+    }
+
+    @Test
+    public void test_isPermutationOfPalindrome() {
+        CheckString cs = new CheckString();
+        assertTrue(cs.isPermutationOfPalindrome("aa bb cc dd"));
+        assertTrue(cs.isPermutationOfPalindrome("aa bb cc dd e"));
+        assertFalse(cs.isPermutationOfPalindrome("aa bb cc dd e fff"));
+    }
+
+    @Test
+    public void test_isPermutationOfPalindromeWithoutRepetition() {
+        CheckString cs = new CheckString();
+        assertTrue(cs.isPermutationOfPalindromeWithoutRepetition("aa bb cc dd"));
+        assertTrue(cs.isPermutationOfPalindromeWithoutRepetition("aa bb cc dd e"));
+        assertFalse(cs.isPermutationOfPalindromeWithoutRepetition("aa bb cc dd e fff"));
+    }
+
+    @Test
+    public void test_isPermutationOfPalindromeUsingBitOperator() {
+        CheckString cs = new CheckString();
+        assertTrue(cs.isPermutationOfPalindromeUsingBitOperator("aa bb cc dd"));
+        assertTrue(cs.isPermutationOfPalindromeUsingBitOperator("aa bb cc dd e"));
+        assertFalse(cs.isPermutationOfPalindromeUsingBitOperator("aa bb cc dd e fff"));
+    }
 }
