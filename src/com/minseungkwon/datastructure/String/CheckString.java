@@ -169,4 +169,87 @@ public class CheckString {
         }
         return true;
     }
+
+    //There are 3 different modifiable ways: 1. Delete one letter, 2. Insert one letter, 3. Change one letter
+    //Check if one string is just one modification away from another string
+    public boolean isOneAway(String s1, String s2) {
+        String ls;
+        String ss;
+
+        //Set longer string to ls, and shorter string to ss
+        if (s1.length() > s2.length()) {
+            ls = s1;
+            ss = s2;
+        } else {
+            ls = s2;
+            ss = s1;
+        }
+
+        //If the length difference of two strings is more than 2, it means it is modified more than 2 times
+        if (ls.length() - ss.length() > 1) {
+            return false;
+        }
+
+        boolean isDifferent = false;
+        for (int i = 0, j = 0; i < ss.length(); ) {
+            if (ss.charAt(i) != ls.charAt(j)) {
+                //If it is modified just once, it's fine. But if it's modified more than 2, it returns false
+                if (!isDifferent) {
+                    isDifferent = true;
+                } else {
+                    return false;
+                }
+
+                //If the string lengths of are different, only increase the longer string's index
+                if (ss.length() != ls.length()) {
+                    j++;
+                } else {
+                    i++;
+                    j++;
+                }
+            } else {
+                i++;
+                j++;
+            }
+        }
+        return true;
+    }
+
+    //Compress the string with repetitive letters (Assume that the string is sorted)
+    //The compressed form should be Letter+The number of the letter
+    //eg. aabbbbcccddd -> a2b4c3d3
+    //If the compressed string is longer than the original string, return the original string
+    //In this solution, tried to avoid recreating char array when the string length is getting longer than the current array size
+    //Therefore, it calculates the compressed string size first, and declare StringBuilder with the size
+    public String compressString(String str) {
+        String newstring = compress(str);
+        return newstring.length() > str.length() ? str : newstring;
+    }
+
+    private String compress(String str) {
+        StringBuilder sb = new StringBuilder(getCompressedLength(str));
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            count++;
+            if (i + 1 >= str.length() || str.charAt(i) != str.charAt(i + 1)) {
+                sb.append(str.charAt(i));
+                sb.append(count);
+                count = 0;
+            }
+        }
+        return sb.toString();
+    }
+
+    private int getCompressedLength(String str) {
+        int count = 0;
+        int total = 0;
+        for (int i = 0; i < str.length(); i++) {
+            count++;
+            if (i + 1 >= str.length() || str.charAt(i) != str.charAt(i + 1)) {
+                total += 1 + String.valueOf(count).length();
+                count = 0;
+            }
+        }
+        return total;
+    }
 }

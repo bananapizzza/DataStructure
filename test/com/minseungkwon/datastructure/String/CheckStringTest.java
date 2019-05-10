@@ -78,4 +78,23 @@ public class CheckStringTest {
         assertTrue(cs.isPermutationOfPalindromeUsingBitOperator("aa bb cc dd e"));
         assertFalse(cs.isPermutationOfPalindromeUsingBitOperator("aa bb cc dd e fff"));
     }
+
+    @Test
+    public void test_isOneAway() {
+        CheckString cs = new CheckString();
+        assertTrue(cs.isOneAway("pal", "pale"));
+        assertTrue(cs.isOneAway("pale", "pal"));
+        assertTrue(cs.isOneAway("pale", "bale"));
+        assertFalse(cs.isOneAway("pal", "pales"));
+        assertFalse(cs.isOneAway("pale", "pel"));
+        assertFalse(cs.isOneAway("pale", "bake"));
+        assertFalse(cs.isOneAway("pple", "ale"));
+    }
+
+    @Test
+    public void test_compressString() {
+        CheckString cs = new CheckString();
+        assertEquals("a2b4c3d3", cs.compressString("aabbbbcccddd"));
+        assertEquals("abcd", cs.compressString("abcd"));
+    }
 }
