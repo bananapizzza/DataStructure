@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class StringBuilderTest {
+public class SimpleStringBuilderTest {
     @Test
     public void test_append(){
         StringBuilder sb = new StringBuilder();
