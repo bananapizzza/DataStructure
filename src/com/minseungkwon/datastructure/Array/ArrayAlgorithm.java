@@ -16,49 +16,49 @@ public class ArrayAlgorithm {
         return image;
     }
 
-    //Find zero in the given matrix, and set the zero's column and row to all zero
+    //Find zeros in the given matrix, and set the zeros' column and row to all zero
     //Without using extra storage
     public int[][] setZeroToAllZero(int[][] matrix) {
-        int fc = -1;
-        int fr = -1;
+        int designatedCol = -1;
+        int designatedRow = -1;
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
                 if (matrix[row][col] == 0) {
-                    //Designate one of the zero's col and row as as a storage
+                    //Designate one of the zero's col and row as a storage
                     //to store what col and row should be modified to zero
-                    if (fc == -1) {
-                        fc = col;
-                        fr = row;
+                    if (designatedCol == -1) {
+                        designatedCol = col;
+                        designatedRow = row;
                     }
                     //Store the zero's col and row info in the designated col and row by making the data to zero
-                    matrix[row][fc] = 0;
-                    matrix[fr][col] = 0;
+                    matrix[row][designatedCol] = 0;
+                    matrix[designatedRow][col] = 0;
                 }
             }
         }
 
         //If there is no zero, return the original matrix
-        if (fc == -1) {
+        if (designatedCol == -1) {
             return matrix;
         }
 
         //Set all the columns that is set to zero in the designated row to zero
         //Except the designated col (Since it has info of the rows to be set to zero)
         for (int col = 0; col < matrix[0].length; col++) {
-            if (matrix[fr][col] == 0 && col != fc) {
+            if (matrix[designatedRow][col] == 0 && col != designatedCol) {
                 setColsToZero(col, matrix);
             }
         }
 
         //Set all the rows that is set to zero in the designated col to zero
         for (int row = 0; row < matrix.length; row++) {
-            if (matrix[row][fc] == 0) {
+            if (matrix[row][designatedCol] == 0) {
                 setRowsToZero(row, matrix);
             }
         }
 
         //Lastly, set all the data of the designated col to zero
-        setColsToZero(fc, matrix);
+        setColsToZero(designatedCol, matrix);
         return matrix;
     }
 
