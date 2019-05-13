@@ -1,11 +1,11 @@
 package com.minseungkwon.datastructure.String;
 
-public class StringBuilder {
+public class SimpleStringBuilder {
     int index;
     int size;
     char[] value;
 
-    StringBuilder() {
+    SimpleStringBuilder() {
         index = 0;
         size = 0;
         value = new char[size];
