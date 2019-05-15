@@ -97,4 +97,13 @@ public class CheckStringTest {
         assertEquals("a2b4c3d3", cs.compressString("aabbbbcccddd"));
         assertEquals("abcd", cs.compressString("abcd"));
     }
+
+    @Test
+    public void test_isRotation() {
+        CheckString cs = new CheckString();
+        assertTrue(cs.isRotation("string", "ringst"));
+        assertTrue(cs.isRotation("string", "ingstr"));
+        assertFalse(cs.isRotation("string", "ingstn"));
+        assertFalse(cs.isRotation("string", "ringstr"));
+    }
 }
