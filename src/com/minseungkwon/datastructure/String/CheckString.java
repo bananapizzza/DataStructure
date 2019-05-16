@@ -267,35 +267,34 @@ public class CheckString {
     //The number of alphabet
     private static final int ALPHABET = 26;
 
-    //Combine all strings that can be made of k alphabet,
-    //and return the number of sorted strings
-    private int numOfSortedString = 0;
-
-    public int checkSortedString(int k) {
+    public static int checkSortedString(int k) {
         if (k == 0) {
             return 0;
         }
-        checkSortedString(k, "");
-        return numOfSortedString;
+        return checkSortedString(k, "");
     }
 
-    private void checkSortedString(int k, String prefix) {
+    private static int checkSortedString(int k, String prefix) {
         if (k == 0) {
             //If the string is sorted, increase the number of sorted strings
             if (isInOrder(prefix)) {
-                numOfSortedString++;
+                return 1;
+            } else {
+                return 0;
             }
         } else {
             //Make combinations start from a to z
+            int count = 0;
             for (int i = 0; i < ALPHABET; i++) {
                 char c = getIthChar(i);
-                checkSortedString(k - 1, prefix + c);
+                count += checkSortedString(k - 1, prefix + c);
             }
+            return count;
         }
     }
 
     //Check if the string is sorted
-    private boolean isInOrder(String str) {
+    private static boolean isInOrder(String str) {
         for (int i = 1; i < str.length(); i++) {
             if (str.charAt(i - 1) > str.charAt(i)) {
                 return false;
@@ -304,7 +303,7 @@ public class CheckString {
         return true;
     }
 
-    private char getIthChar(int i) {
+    private static char getIthChar(int i) {
         return (char) (i + 'a');
     }
 }

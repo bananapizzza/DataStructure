@@ -109,7 +109,6 @@ public class CheckStringTest {
 
     @Test
     public void test_checkSortedString() {
-        CheckString cs = new CheckString();
-        assertEquals(351, cs.checkSortedString(2));
+        assertEquals(351, CheckString.checkSortedString(2));
     }
 }
