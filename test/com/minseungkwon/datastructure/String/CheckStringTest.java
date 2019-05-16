@@ -106,4 +106,9 @@ public class CheckStringTest {
         assertFalse(cs.isRotation("string", "ingstn"));
         assertFalse(cs.isRotation("string", "ringstr"));
     }
+
+    @Test
+    public void test_checkSortedString() {
+        assertEquals(351, CheckString.checkSortedString(2));
+    }
 }

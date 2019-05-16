@@ -263,4 +263,47 @@ public class CheckString {
     private boolean isSubstring(String s1, String s2) {
         return s1.contains(s2);
     }
+
+    //The number of alphabet
+    private static final int ALPHABET = 26;
+
+    public static int checkSortedString(int k) {
+        if (k == 0) {
+            return 0;
+        }
+        return checkSortedString(k, "");
+    }
+
+    private static int checkSortedString(int k, String prefix) {
+        if (k == 0) {
+            //If the string is sorted, increase the number of sorted strings
+            if (isInOrder(prefix)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            //Make combinations start from a to z
+            int count = 0;
+            for (int i = 0; i < ALPHABET; i++) {
+                char c = getIthChar(i);
+                count += checkSortedString(k - 1, prefix + c);
+            }
+            return count;
+        }
+    }
+
+    //Check if the string is sorted
+    private static boolean isInOrder(String str) {
+        for (int i = 1; i < str.length(); i++) {
+            if (str.charAt(i - 1) > str.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static char getIthChar(int i) {
+        return (char) (i + 'a');
+    }
 }
