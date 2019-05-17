@@ -20,4 +20,20 @@ public class SortAlgorithmTest {
         SortAlgorithm.mergeSort(arr);
         assertArrayEquals(expected, arr);
     }
+
+    @Test
+    public void test_bubbleSort() {
+        int[] arr = {3, 9, 4, 7, 5, 0, 1, 6, 8, 2};
+        int[] expected = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        SortAlgorithm.bubbleSort(arr);
+        assertArrayEquals(expected, arr);
+    }
+
+    @Test
+    public void test_selectionSort() {
+        int[] arr = {3, 9, 4, 7, 5, 0, 1, 6, 8, 2};
+        int[] expected = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        SortAlgorithm.selectionSort(arr);
+        assertArrayEquals(expected, arr);
+    }
 }
