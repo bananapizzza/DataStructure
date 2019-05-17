@@ -79,10 +79,43 @@ public class SortAlgorithm {
         for (int i = part1; i <= mid; i++) {
             arr[index++] = temp[i];
         }
+    }
 
-        for (int i = start; i <= end; i++) {
-            System.out.print(arr[i]);
+    public static void bubbleSort(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return;
         }
-        System.out.println();
+        bubbleSort(arr, arr.length - 1);
+    }
+
+    private static void bubbleSort(int[] arr, int last) {
+        if (last > 0) {
+            for (int i = 1; i <= last; i++) {
+                if (arr[i - 1] > arr[i]) {
+                    swap(arr, i - 1, i);
+                }
+            }
+            bubbleSort(arr, last - 1);
+        }
+    }
+
+    public static void selectionSort(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return;
+        }
+        selectionSort(arr, 0);
+    }
+
+    private static void selectionSort(int[] arr, int start) {
+        if (start < arr.length - 1) {
+            int minIndex = start;
+            for (int i = start; i < arr.length; i++) {
+                if (arr[i] < arr[minIndex]) {
+                    minIndex = i;
+                }
+            }
+            swap(arr, start, minIndex);
+            selectionSort(arr, start + 1);
+        }
     }
 }
