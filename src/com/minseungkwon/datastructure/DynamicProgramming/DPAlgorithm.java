@@ -21,4 +21,20 @@ public class DPAlgorithm {
         }
         return Math.min(case1, case2);
     }
+
+    public static int minCostClimbingStairsNotUsingDP(int[] cost) {
+        int case1 = minCostClimbingStairsNotUsingDP(cost, 0, 0);
+        int case2 = minCostClimbingStairsNotUsingDP(cost, 1, 0);
+        return case1 < case2 ? case1 : case2;
+    }
+
+    private static int minCostClimbingStairsNotUsingDP(int[] cost, int index, int sum) {
+        if (index >= cost.length) {
+            return sum;
+        }
+        sum += cost[index];
+        int case1 = minCostClimbingStairsNotUsingDP(cost, index + 1, sum);
+        int case2 = minCostClimbingStairsNotUsingDP(cost, index + 2, sum);
+        return case1 < case2 ? case1 : case2;
+    }
 }
