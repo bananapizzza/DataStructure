@@ -464,12 +464,32 @@ public class BinaryTreeTest {
     }
 
     @Test
-    public void test_countPathWithSumUsingHashMapy() {
+    public void test_countPathWithSumUsingHashMap() {
         Integer[] arr = makeArrayForTree(10);
         BinaryTree<Integer> bt = new BinaryTree<>();
         bt.makeTree(arr);
 
         assertEquals(2, bt.countPathWithSumUsingHashMap(3));
         assertEquals(4, bt.countPathWithSumUsingHashMap(5));
+    }
+
+    @Test
+    public void test_buildTreeByInPre() {
+        int[] pre = {4, 2, 1, 3, 6, 5, 7};
+        int[] in = {1, 2, 3, 4, 5, 6, 7};
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.buildTreeByInPre(in, pre);
+
+        assertEquals("4213657", bt.toString());
+    }
+
+    @Test
+    public void test_buildTreeByInPost() {
+        int[] in = {1, 2, 3, 4, 5, 6, 7};
+        int[] post = {1, 3, 2, 5, 7, 6, 4};
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.buildTreeByInPost(in, post);
+
+        assertEquals("4213657", bt.toString());
     }
 }

@@ -702,5 +702,52 @@ public class BinaryTree<T extends Comparable> {
         }
         return countPath;
     }
+
+
+    public void buildTreeByInPre(int[] in, int[] pre) {
+        root = buildTreeByInPre(in, pre, 0, pre.length - 1, 0, in.length - 1);
+    }
+
+    private Node buildTreeByInPre(int[] in, int[] pre, int preStart, int preEnd, int inStart, int inEnd) {
+        if (inStart > inEnd) {
+            return null;
+        }
+        Node node = new Node(pre[preStart++]);
+        if (inStart == inEnd) {
+            return node;
+        }
+        int mid = searchNodeIndex(in, (int) node.data, inStart, inEnd);
+        node.left = buildTreeByInPre(in, pre, preStart, preStart + mid - inStart - 1, inStart, mid - 1);
+        node.right = buildTreeByInPre(in, pre, preStart + mid - inStart, preEnd, mid + 1, inEnd);
+        return node;
+    }
+
+    private int searchNodeIndex(int[] in, int data, int start, int end) {
+        for (int i = start; i <= end; i++) {
+            if (in[i] == data) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    public void buildTreeByInPost(int[] in, int[] post) {
+        root = buildTreeByInPost(in, post, 0, post.length - 1, 0, in.length - 1);
+    }
+
+    private Node buildTreeByInPost(int[] in, int[] post, int postStart, int postEnd, int inStart, int inEnd) {
+        if (inStart > inEnd) {
+            return null;
+        }
+        Node node = new Node(post[postEnd--]);
+        if (inStart == inEnd) {
+            return node;
+        }
+        int mid = searchNodeIndex(in, (int) node.data, inStart, inEnd);
+        node.left = buildTreeByInPost(in, post, postStart, postStart + mid - inStart - 1, inStart, mid - 1);
+        node.right = buildTreeByInPost(in, post, postStart + mid - inStart, postEnd, mid + 1, inEnd);
+        return node;
+    }
 }
 
