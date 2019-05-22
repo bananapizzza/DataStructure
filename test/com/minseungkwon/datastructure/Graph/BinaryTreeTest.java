@@ -492,4 +492,35 @@ public class BinaryTreeTest {
 
         assertEquals("4213657", bt.toString());
     }
+
+    @Test
+    public void test_insert() {
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.insert(4);
+        bt.insert(2);
+        bt.insert(1);
+        bt.insert(3);
+        bt.insert(6);
+        bt.insert(5);
+        bt.insert(7);
+
+        assertEquals("4213657", bt.toString());
+    }
+
+    @Test
+    public void test_delete() {
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.insert(4);
+        bt.insert(2);
+        bt.insert(1);
+        bt.insert(3);
+        bt.insert(6);
+        bt.insert(5);
+        bt.insert(7);
+        bt.delete(5);
+        bt.delete(6);
+        bt.delete(2);
+
+        assertEquals("4317", bt.toString());
+    }
 }
