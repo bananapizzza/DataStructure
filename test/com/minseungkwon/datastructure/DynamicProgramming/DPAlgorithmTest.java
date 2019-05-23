@@ -2,6 +2,8 @@ package com.minseungkwon.datastructure.DynamicProgramming;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class DPAlgorithmTest {
@@ -31,5 +33,24 @@ public class DPAlgorithmTest {
         assertEquals(6, DPAlgorithm.minCostClimbingStairsNotUsingDP(test3));
         long afterTime = System.currentTimeMillis();
         System.out.println(afterTime - beforeTime);
+    }
+
+    @Test
+    public void test_findPath() {
+        boolean[][] grid = {
+                {false, false, false, false},
+                {false, false, false, true},
+                {true, true, false, false},
+                {false, false, false, false}
+        };
+
+        ArrayList<DPAlgorithm.Point> path = DPAlgorithm.findPath(grid);
+        StringBuilder s = new StringBuilder();
+        for (DPAlgorithm.Point p : path) {
+            s.append(p.row);
+            s.append(p.col);
+            s.append(" ");
+        }
+        assertEquals("00 10 11 12 22 32 33 ", s.toString());
     }
 }

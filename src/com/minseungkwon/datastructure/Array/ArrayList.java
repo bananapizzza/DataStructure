@@ -1,4 +1,4 @@
-package com.minseungkwon.datastructure;
+package com.minseungkwon.datastructure.Array;
 
 public class ArrayList {
     int index;

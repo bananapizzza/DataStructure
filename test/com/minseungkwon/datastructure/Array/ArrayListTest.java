@@ -1,8 +1,7 @@
-package com.minseungkwon.datastructure;
+package com.minseungkwon.datastructure.Array;
 
+import com.minseungkwon.datastructure.Array.ArrayList;
 import org.junit.Test;
-
-import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 
